@@ -518,30 +518,33 @@ function Index() {
       <a
         href={WHATSAPP}
         aria-label="Scrie-ne pe WhatsApp"
-        className="fixed right-5 bottom-24 z-50 flex h-13 w-13 items-center justify-center rounded-full bg-olive text-2xl text-olive-foreground shadow-[var(--shadow-lift)] transition-transform hover:scale-110 md:bottom-8"
-        style={{ height: "3.25rem", width: "3.25rem" }}
+        className="fixed right-5 bottom-24 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-olive text-olive-foreground shadow-[var(--shadow-lift)] transition-transform hover:scale-110 md:bottom-8"
       >
-        💬
+        <svg viewBox="0 0 24 24" className="h-6 w-6" fill="currentColor" aria-hidden="true">
+          <path d="M12.04 2a9.9 9.9 0 0 0-8.5 14.96L2 22l5.2-1.5A9.9 9.9 0 1 0 12.04 2Zm0 1.8a8.1 8.1 0 1 1-4.13 15.06l-.3-.18-3.08.89.9-3-.2-.31A8.1 8.1 0 0 1 12.04 3.8Zm4.5 10.3c-.24-.12-1.44-.71-1.66-.79-.22-.08-.38-.12-.55.12-.16.24-.62.79-.76.95-.14.16-.28.18-.52.06a6.6 6.6 0 0 1-3.29-2.87c-.25-.43.25-.4.71-1.32.08-.16.04-.3-.02-.42-.06-.12-.55-1.32-.75-1.8-.2-.48-.4-.41-.55-.42h-.47c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.7 2.6 4.12 3.64 1.53.66 2.13.72 2.9.6.46-.06 1.44-.58 1.64-1.16.2-.58.2-1.07.14-1.17-.06-.1-.22-.16-.46-.28Z" />
+        </svg>
       </a>
 
       {/* MOBILE BOTTOM NAV */}
       <nav className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-4 border-t border-border bg-background/95 backdrop-blur-xl md:hidden">
         {[
-          { href: "#top", label: "Acasă", icon: "🏠" },
-          { href: "#produse", label: "Produse", icon: "🥖" },
-          { href: "#program", label: "Program", icon: "🗓" },
-          { href: "#produse", label: "Comandă", icon: "🛒" },
-        ].map((i) => (
+          { href: "#top", label: "Acasă" },
+          { href: "#produse", label: "Produse" },
+          { href: "#program", label: "Program" },
+          { href: "#produse", label: "Comandă" },
+        ].map((i, idx) => (
           <a
             key={i.label}
             href={i.href}
-            className="flex flex-col items-center gap-1 py-3 text-[10px] tracking-wide text-muted-foreground uppercase"
+            className={`py-4 text-center text-[10px] tracking-[0.18em] uppercase ${
+              idx === 3 ? "font-bold text-primary" : "text-muted-foreground"
+            }`}
           >
-            <span className="text-base">{i.icon}</span>
             {i.label}
           </a>
         ))}
       </nav>
+
     </div>
   );
 }
