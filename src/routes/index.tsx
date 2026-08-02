@@ -51,10 +51,10 @@ export const Route = createFileRoute("/")({
         content:
           "Brutărie artizanală: pâine cu maia naturală, fermentată 24–48h, coaptă pe piatră. Comandă online, livrare locală sau ridicare din brutărie.",
       },
-      { property: "og:title", content: "Gluten Morgen — Brutărie artizanală cu maia" },
+      { property: "og:title", content: "Gluten Morgen — Pâine cu maia, coaptă în fiecare dimineață" },
       {
         property: "og:description",
-        content: "Diminețile bune încep cu o pâine adevărată. Fără aditivi, fără conservanți.",
+        content: "Brutărie artizanală: pâine cu maia naturală, fermentată 24–48h, coaptă pe piatră. Comandă online, livrare locală sau ridicare din brutărie.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: "/" },

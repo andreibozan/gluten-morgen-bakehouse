@@ -77,14 +77,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Gluten Morgen — Brutărie artizanală cu maia" },
+      { title: "Gluten Morgen — Pâine cu maia, coaptă în fiecare dimineață" },
       {
         name: "description",
-        content: "Pâine cu maia naturală, fermentată 24–48h și coaptă în fiecare dimineață.",
+        content: "Brutărie artizanală: pâine cu maia naturală, fermentată 24–48h, coaptă pe piatră. Comandă online, livrare locală sau ridicare din brutărie.",
       },
       { property: "og:site_name", content: "Gluten Morgen" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:title", content: "Gluten Morgen — Pâine cu maia, coaptă în fiecare dimineață" },
+      { name: "twitter:title", content: "Gluten Morgen — Pâine cu maia, coaptă în fiecare dimineață" },
+      { property: "og:description", content: "Brutărie artizanală: pâine cu maia naturală, fermentată 24–48h, coaptă pe piatră. Comandă online, livrare locală sau ridicare din brutărie." },
+      { name: "twitter:description", content: "Brutărie artizanală: pâine cu maia naturală, fermentată 24–48h, coaptă pe piatră. Comandă online, livrare locală sau ridicare din brutărie." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/fb7b10e1-e0e9-4b84-9fd1-159eaa5f4d34" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/fb7b10e1-e0e9-4b84-9fd1-159eaa5f4d34" },
     ],
     links: [
       {
