@@ -496,8 +496,9 @@ function Index() {
           <div>
             <p className="eyebrow text-accent">Ne găsești aici</p>
             <iframe
-              title="Harta brutăriei Gluten Morgen"
-              src="https://www.openstreetmap.org/export/embed.html?bbox=26.05%2C44.42%2C26.14%2C44.47&layer=mapnik"
+              title="Harta brutăriei Gluten Morgen — Str. Depozitelor 7, Deva"
+              src="https://www.openstreetmap.org/export/embed.html?bbox=22.87%2C45.86%2C22.94%2C45.91&layer=mapnik"
+
               loading="lazy"
               className="mt-3 h-40 w-full rounded-sm border border-background/20 grayscale"
             />
