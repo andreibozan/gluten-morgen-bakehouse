@@ -1,8 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Reveal } from "@/components/Reveal";
 import { Countdown } from "@/components/bakery/Countdown";
-import { products, gallery, steps, schedule, faqs, reviews } from "@/components/bakery/data";
+import { products, gallery, steps, schedule, faqs, reviews, contact } from "@/components/bakery/data";
 import heroImg from "@/assets/hero-sourdough.jpg";
 import gAluat from "@/assets/g-aluat.jpg";
 
@@ -15,7 +15,7 @@ const NAV = [
   { href: "#faq", label: "Întrebări" },
 ];
 
-const WHATSAPP = "https://wa.me/40700000000";
+const WHATSAPP = contact.whatsapp;
 
 const productSchema = {
   "@context": "https://schema.org",
@@ -24,11 +24,12 @@ const productSchema = {
   description: "Brutărie artizanală cu pâine cu maia naturală, fermentată 24–48 de ore.",
   servesCuisine: "Bakery",
   priceRange: "$$",
-  telephone: "+40 700 000 000",
+  telephone: "+40745987108",
+  email: contact.email,
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Str. Morii nr. 12",
-    addressLocality: "București",
+    streetAddress: contact.addressStreet,
+    addressLocality: contact.addressCity,
     addressCountry: "RO",
   },
   openingHours: "Mo-Sa 07:00-19:00",
@@ -40,6 +41,7 @@ const productSchema = {
     itemOffered: { "@type": "Product", name: p.name, description: p.description },
   })),
 };
+
 
 export const Route = createFileRoute("/")({
   component: Index,
