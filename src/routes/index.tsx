@@ -459,8 +459,8 @@ function Index() {
           <div className="space-y-2 text-sm">
             <p className="eyebrow text-accent">Contact</p>
             <p>
-              <a href="tel:+40700000000" className="hover:text-accent">
-                +40 700 000 000
+              <a href={contact.phoneHref} className="hover:text-accent">
+                {contact.phone}
               </a>
             </p>
             <p>
@@ -469,12 +469,13 @@ function Index() {
               </a>
             </p>
             <p>
-              <a href="mailto:comenzi@glutenmorgen.ro" className="hover:text-accent">
-                comenzi@glutenmorgen.ro
+              <a href={`mailto:${contact.email}`} className="hover:text-accent">
+                {contact.email}
               </a>
             </p>
-            <p>Str. Morii nr. 12, București</p>
+            <p>{contact.addressFull}</p>
           </div>
+
           <div className="space-y-2 text-sm">
             <p className="eyebrow text-accent">Program</p>
             <p>Luni – Vineri: 07:00 – 19:00</p>
