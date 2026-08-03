@@ -1,8 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Reveal } from "@/components/Reveal";
 import { Countdown } from "@/components/bakery/Countdown";
-import { products, gallery, steps, schedule, faqs, reviews } from "@/components/bakery/data";
+import { products, gallery, steps, schedule, faqs, reviews, contact } from "@/components/bakery/data";
 import heroImg from "@/assets/hero-sourdough.jpg";
 import gAluat from "@/assets/g-aluat.jpg";
 
@@ -15,7 +15,7 @@ const NAV = [
   { href: "#faq", label: "Întrebări" },
 ];
 
-const WHATSAPP = "https://wa.me/40700000000";
+const WHATSAPP = contact.whatsapp;
 
 const productSchema = {
   "@context": "https://schema.org",
@@ -24,11 +24,12 @@ const productSchema = {
   description: "Brutărie artizanală cu pâine cu maia naturală, fermentată 24–48 de ore.",
   servesCuisine: "Bakery",
   priceRange: "$$",
-  telephone: "+40 700 000 000",
+  telephone: "+40745987108",
+  email: contact.email,
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Str. Morii nr. 12",
-    addressLocality: "București",
+    streetAddress: contact.addressStreet,
+    addressLocality: contact.addressCity,
     addressCountry: "RO",
   },
   openingHours: "Mo-Sa 07:00-19:00",
@@ -40,6 +41,7 @@ const productSchema = {
     itemOffered: { "@type": "Product", name: p.name, description: p.description },
   })),
 };
+
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -457,8 +459,8 @@ function Index() {
           <div className="space-y-2 text-sm">
             <p className="eyebrow text-accent">Contact</p>
             <p>
-              <a href="tel:+40700000000" className="hover:text-accent">
-                +40 700 000 000
+              <a href={contact.phoneHref} className="hover:text-accent">
+                {contact.phone}
               </a>
             </p>
             <p>
@@ -467,12 +469,13 @@ function Index() {
               </a>
             </p>
             <p>
-              <a href="mailto:comenzi@glutenmorgen.ro" className="hover:text-accent">
-                comenzi@glutenmorgen.ro
+              <a href={`mailto:${contact.email}`} className="hover:text-accent">
+                {contact.email}
               </a>
             </p>
-            <p>Str. Morii nr. 12, București</p>
+            <p>{contact.addressFull}</p>
           </div>
+
           <div className="space-y-2 text-sm">
             <p className="eyebrow text-accent">Program</p>
             <p>Luni – Vineri: 07:00 – 19:00</p>
@@ -493,8 +496,9 @@ function Index() {
           <div>
             <p className="eyebrow text-accent">Ne găsești aici</p>
             <iframe
-              title="Harta brutăriei Gluten Morgen"
-              src="https://www.openstreetmap.org/export/embed.html?bbox=26.05%2C44.42%2C26.14%2C44.47&layer=mapnik"
+              title="Harta brutăriei Gluten Morgen — Str. Depozitelor 7, Deva"
+              src="https://www.openstreetmap.org/export/embed.html?bbox=22.87%2C45.86%2C22.94%2C45.91&layer=mapnik"
+
               loading="lazy"
               className="mt-3 h-40 w-full rounded-sm border border-background/20 grayscale"
             />
@@ -552,7 +556,7 @@ function Index() {
 function ProductBody({ p }: { p: (typeof products)[number] }) {
   return (
     <>
-      <div className="relative overflow-hidden">
+      <Link to="/produs/$slug" params={{ slug: p.slug }} className="relative block overflow-hidden">
         <img
           src={p.image}
           alt={p.name}
@@ -570,9 +574,13 @@ function ProductBody({ p }: { p: (typeof products)[number] }) {
             Stoc epuizat
           </span>
         )}
-      </div>
+      </Link>
       <div className="flex flex-col p-6">
-        <h3 className="font-display text-2xl text-primary">{p.name}</h3>
+        <h3 className="font-display text-2xl text-primary">
+          <Link to="/produs/$slug" params={{ slug: p.slug }} className="hover:text-accent">
+            {p.name}
+          </Link>
+        </h3>
         <p className="mt-2 text-sm leading-relaxed text-foreground/70">{p.description}</p>
         <dl className="mt-4 space-y-1 text-xs text-muted-foreground">
           <div className="flex gap-2">
@@ -584,6 +592,13 @@ function ProductBody({ p }: { p: (typeof products)[number] }) {
             <dd className="min-w-0">{p.ingredients}</dd>
           </div>
         </dl>
+        <Link
+          to="/produs/$slug"
+          params={{ slug: p.slug }}
+          className="mt-4 text-xs font-bold tracking-[0.16em] text-olive uppercase hover:text-primary"
+        >
+          Vezi detalii →
+        </Link>
         <div className="mt-5 flex items-center justify-between gap-4 border-t border-border pt-5">
           <span className="font-display text-2xl text-primary">{p.price} lei</span>
           <button
@@ -593,6 +608,7 @@ function ProductBody({ p }: { p: (typeof products)[number] }) {
             {p.stock === 0 ? "Anunță-mă" : "Comandă"}
           </button>
         </div>
+
         {p.stock > 0 && (
           <p className="mt-3 text-[11px] text-olive">În stoc acum: {p.stock} bucăți</p>
         )}
