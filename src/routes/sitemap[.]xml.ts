@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
+import { products } from "@/components/bakery/data";
+
 
 const BASE_URL = "https://gluten-morgen-bakehouse.lovable.app";
 
