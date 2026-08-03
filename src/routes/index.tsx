@@ -556,7 +556,7 @@ function Index() {
 function ProductBody({ p }: { p: (typeof products)[number] }) {
   return (
     <>
-      <div className="relative overflow-hidden">
+      <Link to="/produs/$slug" params={{ slug: p.slug }} className="relative block overflow-hidden">
         <img
           src={p.image}
           alt={p.name}
@@ -574,9 +574,13 @@ function ProductBody({ p }: { p: (typeof products)[number] }) {
             Stoc epuizat
           </span>
         )}
-      </div>
+      </Link>
       <div className="flex flex-col p-6">
-        <h3 className="font-display text-2xl text-primary">{p.name}</h3>
+        <h3 className="font-display text-2xl text-primary">
+          <Link to="/produs/$slug" params={{ slug: p.slug }} className="hover:text-accent">
+            {p.name}
+          </Link>
+        </h3>
         <p className="mt-2 text-sm leading-relaxed text-foreground/70">{p.description}</p>
         <dl className="mt-4 space-y-1 text-xs text-muted-foreground">
           <div className="flex gap-2">
@@ -588,6 +592,13 @@ function ProductBody({ p }: { p: (typeof products)[number] }) {
             <dd className="min-w-0">{p.ingredients}</dd>
           </div>
         </dl>
+        <Link
+          to="/produs/$slug"
+          params={{ slug: p.slug }}
+          className="mt-4 text-xs font-bold tracking-[0.16em] text-olive uppercase hover:text-primary"
+        >
+          Vezi detalii →
+        </Link>
         <div className="mt-5 flex items-center justify-between gap-4 border-t border-border pt-5">
           <span className="font-display text-2xl text-primary">{p.price} lei</span>
           <button
@@ -597,6 +608,7 @@ function ProductBody({ p }: { p: (typeof products)[number] }) {
             {p.stock === 0 ? "Anunță-mă" : "Comandă"}
           </button>
         </div>
+
         {p.stock > 0 && (
           <p className="mt-3 text-[11px] text-olive">În stoc acum: {p.stock} bucăți</p>
         )}
