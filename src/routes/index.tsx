@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Reveal } from "@/components/Reveal";
+import { track } from "@/lib/track";
 import { Countdown } from "@/components/bakery/Countdown";
 import { products, gallery, steps, schedule, faqs, reviews, contact } from "@/components/bakery/data";
 import heroImg from "@/assets/hero-sourdough.jpg";
@@ -81,6 +82,10 @@ function Index() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
 
+  useEffect(() => {
+    track("page_view");
+  }, []);
+
   return (
     <div className="min-h-screen bg-background pb-16 md:pb-0">
       {/* NAV */}
@@ -105,7 +110,8 @@ function Index() {
               </a>
             ))}
             <a
-              href="#produse"
+              href="/comanda"
+              onClick={() => track("order_click")}
               className="rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-primary-foreground transition-all hover:bg-primary/90 hover:shadow-[var(--shadow-lift)]"
             >
               Comandă acum
@@ -168,7 +174,8 @@ function Index() {
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <a
-                href="#produse"
+                href="/comanda"
+                onClick={() => track("order_click")}
                 className="rounded-full bg-accent px-8 py-4 text-center text-sm font-bold text-accent-foreground transition-transform hover:scale-[1.03]"
               >
                 Comandă acum
@@ -414,7 +421,10 @@ function Index() {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                if (email.trim().length > 3) setSubscribed(true);
+                if (email.trim().length > 3) {
+                  setSubscribed(true);
+                  track("newsletter_signup");
+                }
               }}
               className="mx-auto mt-9 flex max-w-md flex-col gap-3 sm:flex-row"
             >
@@ -459,12 +469,12 @@ function Index() {
           <div className="space-y-2 text-sm">
             <p className="eyebrow text-accent">Contact</p>
             <p>
-              <a href={contact.phoneHref} className="hover:text-accent">
+              <a href={contact.phoneHref} onClick={() => track("phone_click")} className="hover:text-accent">
                 {contact.phone}
               </a>
             </p>
             <p>
-              <a href={WHATSAPP} className="hover:text-accent">
+              <a href={WHATSAPP} onClick={() => track("whatsapp_click")} className="hover:text-accent">
                 WhatsApp
               </a>
             </p>
@@ -522,6 +532,7 @@ function Index() {
       <a
         href={WHATSAPP}
         aria-label="Scrie-ne pe WhatsApp"
+        onClick={() => track("whatsapp_click")}
         className="fixed right-5 bottom-24 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-olive text-olive-foreground shadow-[var(--shadow-lift)] transition-transform hover:scale-110 md:bottom-8"
       >
         <svg viewBox="0 0 24 24" className="h-6 w-6" fill="currentColor" aria-hidden="true">
@@ -535,7 +546,7 @@ function Index() {
           { href: "#top", label: "Acasă" },
           { href: "#produse", label: "Produse" },
           { href: "#program", label: "Program" },
-          { href: "#produse", label: "Comandă" },
+          { href: "/comanda", label: "Comandă" },
         ].map((i, idx) => (
           <a
             key={i.label}
@@ -601,12 +612,14 @@ function ProductBody({ p }: { p: (typeof products)[number] }) {
         </Link>
         <div className="mt-5 flex items-center justify-between gap-4 border-t border-border pt-5">
           <span className="font-display text-2xl text-primary">{p.price} lei</span>
-          <button
-            disabled={p.stock === 0}
-            className="rounded-full bg-primary px-6 py-3 text-xs font-bold tracking-wide text-primary-foreground uppercase transition-all hover:bg-primary/90 disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground"
+          <Link
+            to="/comanda"
+            search={{ produs: p.slug }}
+            onClick={() => track("order_click", p.slug)}
+            className="rounded-full bg-primary px-6 py-3 text-xs font-bold tracking-wide text-primary-foreground uppercase transition-all hover:bg-primary/90"
           >
-            {p.stock === 0 ? "Anunță-mă" : "Comandă"}
-          </button>
+            {p.stock === 0 ? "Precomandă" : "Comandă"}
+          </Link>
         </div>
 
         {p.stock > 0 && (

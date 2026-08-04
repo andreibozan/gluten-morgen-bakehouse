@@ -1,5 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { Reveal } from "@/components/Reveal";
+import { track } from "@/lib/track";
 import { products, contact } from "@/components/bakery/data";
 
 export const Route = createFileRoute("/produs/$slug")({
