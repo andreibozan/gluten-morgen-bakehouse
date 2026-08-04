@@ -1,5 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { Reveal } from "@/components/Reveal";
+import { track } from "@/lib/track";
 import { products, contact } from "@/components/bakery/data";
 
 export const Route = createFileRoute("/produs/$slug")({
@@ -51,6 +53,10 @@ function ProductPage() {
   const { product: p } = Route.useLoaderData();
   const related = products.filter((r) => r.slug !== p.slug).slice(0, 3);
 
+  useEffect(() => {
+    track("product_view", p.slug);
+  }, [p.slug]);
+
   return (
     <div className="min-h-screen bg-background">
       <header className="border-b border-border">
@@ -97,14 +103,24 @@ function ProductPage() {
             </p>
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <a
-                href={contact.whatsapp}
+              <Link
+                to="/comanda"
+                search={{ produs: p.slug }}
+                onClick={() => track("order_click", p.slug)}
                 className="rounded-full bg-primary px-8 py-4 text-center text-sm font-bold text-primary-foreground transition-transform hover:scale-[1.02]"
               >
-                {p.stock > 0 ? "Comandă pe WhatsApp" : "Anunță-mă când revine"}
+                {p.stock > 0 ? "Comandă online" : "Precomandă"}
+              </Link>
+              <a
+                href={contact.whatsapp}
+                onClick={() => track("whatsapp_click", p.slug)}
+                className="rounded-full border border-border px-8 py-4 text-center text-sm font-bold text-primary transition-colors hover:bg-secondary"
+              >
+                WhatsApp
               </a>
               <a
                 href={contact.phoneHref}
+                onClick={() => track("phone_click", p.slug)}
                 className="rounded-full border border-border px-8 py-4 text-center text-sm font-bold text-primary transition-colors hover:bg-secondary"
               >
                 Sună {contact.phone}
