@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ComandaRouteImport } from './routes/comanda'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ProdusSlugRouteImport } from './routes/produs.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ComandaRoute = ComandaRouteImport.update({
+  id: '/comanda',
+  path: '/comanda',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -31,30 +37,34 @@ const ProdusSlugRoute = ProdusSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/comanda': typeof ComandaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/produs/$slug': typeof ProdusSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/comanda': typeof ComandaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/produs/$slug': typeof ProdusSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/comanda': typeof ComandaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/produs/$slug': typeof ProdusSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/sitemap.xml' | '/produs/$slug'
+  fullPaths: '/' | '/comanda' | '/sitemap.xml' | '/produs/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/sitemap.xml' | '/produs/$slug'
-  id: '__root__' | '/' | '/sitemap.xml' | '/produs/$slug'
+  to: '/' | '/comanda' | '/sitemap.xml' | '/produs/$slug'
+  id: '__root__' | '/' | '/comanda' | '/sitemap.xml' | '/produs/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ComandaRoute: typeof ComandaRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ProdusSlugRoute: typeof ProdusSlugRoute
 }
@@ -66,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/comanda': {
+      id: '/comanda'
+      path: '/comanda'
+      fullPath: '/comanda'
+      preLoaderRoute: typeof ComandaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ComandaRoute: ComandaRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ProdusSlugRoute: ProdusSlugRoute,
 }
