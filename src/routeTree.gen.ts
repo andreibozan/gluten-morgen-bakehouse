@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ComandaRouteImport } from './routes/comanda'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
@@ -23,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
 } as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ComandaRoute = ComandaRouteImport.update({
@@ -48,6 +54,7 @@ const ProdusSlugRoute = ProdusSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/comanda': typeof ComandaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin': typeof AuthenticatedAdminRoute
@@ -55,6 +62,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/comanda': typeof ComandaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin': typeof AuthenticatedAdminRoute
@@ -64,6 +72,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
   '/comanda': typeof ComandaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
@@ -71,13 +80,15 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/comanda' | '/sitemap.xml' | '/admin' | '/produs/$slug'
+  fullPaths:
+    '/' | '/auth' | '/comanda' | '/sitemap.xml' | '/admin' | '/produs/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/comanda' | '/sitemap.xml' | '/admin' | '/produs/$slug'
+  to: '/' | '/auth' | '/comanda' | '/sitemap.xml' | '/admin' | '/produs/$slug'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
+    | '/auth'
     | '/comanda'
     | '/sitemap.xml'
     | '/_authenticated/admin'
@@ -87,6 +98,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
   ComandaRoute: typeof ComandaRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ProdusSlugRoute: typeof ProdusSlugRoute
@@ -106,6 +118,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/comanda': {
@@ -153,6 +172,7 @@ const AuthenticatedRouteRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
   ComandaRoute: ComandaRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ProdusSlugRoute: ProdusSlugRoute,
