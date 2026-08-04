@@ -6,6 +6,9 @@ import { track } from "@/lib/track";
 
 export const Route = createFileRoute("/comanda")({
   component: OrderPage,
+  validateSearch: (search: Record<string, unknown>) => ({
+    produs: typeof search['produs'] === "string" ? (search['produs'] as string) : undefined,
+  }),
   head: () => ({
     meta: [
       { title: "Comandă pâine cu maia — Gluten Morgen Deva" },
@@ -27,6 +30,7 @@ export const Route = createFileRoute("/comanda")({
 
 function OrderPage() {
   const navigate = useNavigate();
+  const { produs } = Route.useSearch();
   const [qty, setQty] = useState<Record<string, number>>({});
   const [form, setForm] = useState({
     customer_name: "",
@@ -42,9 +46,8 @@ function OrderPage() {
 
   useEffect(() => {
     track("page_view");
-    const slug = new URLSearchParams(window.location.search).get("produs");
-    if (slug && products.some((p) => p.slug === slug)) setQty({ [slug]: 1 });
-  }, []);
+    if (produs && products.some((p) => p.slug === produs)) setQty({ [produs]: 1 });
+  }, [produs]);
 
   const items = useMemo(
     () =>
