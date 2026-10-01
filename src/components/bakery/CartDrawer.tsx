@@ -96,7 +96,7 @@ export function CartDrawer() {
               <div className="flex justify-between text-sm text-muted-foreground"><span>Ridicare / Livrare</span><span>se alege la pasul următor</span></div>
               <div className="flex justify-between font-display text-2xl text-primary"><span>Total</span><span>{subtotal} lei</span></div>
               <Link
-                to="/comanda"
+                to="/comanda" search={{ produs: undefined }}
                 onClick={() => { openState.set(false); track("checkout_started"); }}
                 className="block rounded-full bg-primary py-4 text-center text-sm font-bold tracking-wide text-primary-foreground uppercase"
               >
