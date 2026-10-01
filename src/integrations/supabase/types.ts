@@ -54,8 +54,11 @@ export type Database = {
           id: string
           items: Json
           note: string | null
+          order_date: string | null
+          order_number: string | null
           phone: string
           status: string
+          time_slot: string | null
           total: number
         }
         Insert: {
@@ -67,8 +70,11 @@ export type Database = {
           id?: string
           items?: Json
           note?: string | null
+          order_date?: string | null
+          order_number?: string | null
           phone: string
           status?: string
+          time_slot?: string | null
           total?: number
         }
         Update: {
@@ -80,9 +86,30 @@ export type Database = {
           id?: string
           items?: Json
           note?: string | null
+          order_date?: string | null
+          order_number?: string | null
           phone?: string
           status?: string
+          time_slot?: string | null
           total?: number
+        }
+        Relationships: []
+      }
+      product_stock: {
+        Row: {
+          slug: string
+          stock: number
+          updated_at: string
+        }
+        Insert: {
+          slug: string
+          stock?: number
+          updated_at?: string
+        }
+        Update: {
+          slug?: string
+          stock?: number
+          updated_at?: string
         }
         Relationships: []
       }
