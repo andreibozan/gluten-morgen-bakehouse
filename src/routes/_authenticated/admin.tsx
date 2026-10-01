@@ -85,7 +85,7 @@ function AdminPage() {
           supabase.from("events").select("*").gte("created_at", since).order("created_at", { ascending: false }).limit(5000),
         ]);
         if (!active) return;
-        setOrders((o.data as Order[]) ?? []);
+        setOrders((o.data as unknown as Order[]) ?? []);
         setEvents((e.data as EventRow[]) ?? []);
       }
       setLoading(false);

@@ -7,7 +7,10 @@ export type EventType =
   | "whatsapp_click"
   | "phone_click"
   | "newsletter_signup"
-  | "order_submitted";
+  | "order_submitted"
+  | "add_to_cart"
+  | "remove_from_cart"
+  | "checkout_started";
 
 function sessionId() {
   if (typeof window === "undefined") return null;
