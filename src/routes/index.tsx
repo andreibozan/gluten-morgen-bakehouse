@@ -92,7 +92,7 @@ function Index() {
     <div className="min-h-screen bg-background pb-16 md:pb-0">
       {/* NAV */}
       <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-xl">
-        <div className="container-x grid h-16 grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
+        <div className="container-x grid h-16 grid-cols-[minmax(0,1fr)_auto] items-center gap-4 md:flex md:justify-between">
           <a href="#top" className="min-w-0">
             <span className="block font-display text-xl leading-none tracking-wide text-primary">
               Gluten Morgen
@@ -135,6 +135,7 @@ function Index() {
               className={`h-px w-6 bg-foreground transition-transform ${menuOpen ? "-translate-y-[7px] -rotate-45" : ""}`}
             />
           </button>
+          </div>
         </div>
         {menuOpen && (
           <nav className="animate-fade-in border-t border-border bg-background px-5 pb-6 md:hidden">
