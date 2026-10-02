@@ -1,5 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { CartButton } from "@/components/bakery/CartDrawer";
+import { AddToCart, Availability } from "@/components/bakery/AddToCart";
 import { Reveal } from "@/components/Reveal";
 import { track } from "@/lib/track";
 import { Countdown } from "@/components/bakery/Countdown";
@@ -90,7 +92,7 @@ function Index() {
     <div className="min-h-screen bg-background pb-16 md:pb-0">
       {/* NAV */}
       <header className="fixed inset-x-0 top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-xl">
-        <div className="container-x grid h-16 grid-cols-[minmax(0,1fr)_auto] items-center gap-4">
+        <div className="container-x grid h-16 grid-cols-[minmax(0,1fr)_auto] items-center gap-4 md:flex md:justify-between">
           <a href="#top" className="min-w-0">
             <span className="block font-display text-xl leading-none tracking-wide text-primary">
               Gluten Morgen
@@ -117,6 +119,8 @@ function Index() {
               Comandă acum
             </a>
           </nav>
+          <div className="flex items-center gap-1">
+          <CartButton />
           <button
             onClick={() => setMenuOpen((v) => !v)}
             aria-label="Meniu"
@@ -131,6 +135,7 @@ function Index() {
               className={`h-px w-6 bg-foreground transition-transform ${menuOpen ? "-translate-y-[7px] -rotate-45" : ""}`}
             />
           </button>
+          </div>
         </div>
         {menuOpen && (
           <nav className="animate-fade-in border-t border-border bg-background px-5 pb-6 md:hidden">
@@ -610,21 +615,13 @@ function ProductBody({ p }: { p: (typeof products)[number] }) {
         >
           Vezi detalii →
         </Link>
-        <div className="mt-5 flex items-center justify-between gap-4 border-t border-border pt-5">
-          <span className="font-display text-2xl text-primary">{p.price} lei</span>
-          <Link
-            to="/comanda"
-            search={{ produs: p.slug }}
-            onClick={() => track("order_click", p.slug)}
-            className="rounded-full bg-primary px-6 py-3 text-xs font-bold tracking-wide text-primary-foreground uppercase transition-all hover:bg-primary/90"
-          >
-            {p.stock === 0 ? "Precomandă" : "Comandă"}
-          </Link>
+        <div className="mt-5 border-t border-border pt-5">
+          <div className="mb-3 flex items-center justify-between gap-4">
+            <span className="font-display text-2xl text-primary">{p.price} lei</span>
+            <Availability slug={p.slug} />
+          </div>
+          <AddToCart slug={p.slug} name={p.name} />
         </div>
-
-        {p.stock > 0 && (
-          <p className="mt-3 text-[11px] text-olive">În stoc acum: {p.stock} bucăți</p>
-        )}
       </div>
     </>
   );

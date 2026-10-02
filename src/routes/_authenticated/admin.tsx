@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { products } from "@/components/bakery/data";
 import { claimAdmin } from "@/lib/admin.functions";
 
 type Order = {
@@ -15,6 +16,9 @@ type Order = {
   items: { name: string; qty: number; price: number }[];
   total: number;
   status: string;
+  order_date: string | null;
+  time_slot: string | null;
+  order_number: string | null;
 };
 
 type EventRow = {
@@ -34,6 +38,9 @@ const EVENT_LABELS: Record<string, string> = {
   phone_click: "Click telefon",
   newsletter_signup: "Abonări newsletter",
   order_submitted: "Comenzi trimise",
+  add_to_cart: "Adăugări în coș",
+  remove_from_cart: "Eliminări din coș",
+  checkout_started: "Checkout început",
 };
 
 const STATUSES = ["nou", "confirmat", "pregătit", "finalizat", "anulat"];
@@ -221,6 +228,8 @@ function AdminPage() {
         </ul>
       </section>
 
+      <StockEditor />
+
       <section className="mt-6 rounded-xl border border-border bg-card p-5">
         <h2 className="font-display text-2xl text-primary">Comenzi</h2>
         {orders.length === 0 && <p className="mt-3 text-sm text-muted-foreground">Nu există comenzi încă.</p>}
@@ -233,7 +242,9 @@ function AdminPage() {
                     {o.customer_name} · <a href={`tel:${o.phone}`} className="text-accent">{o.phone}</a>
                   </p>
                   <p className="text-xs text-muted-foreground">
-                    {new Date(o.created_at).toLocaleString("ro-RO")} · {o.delivery_method}
+                    {o.order_number ? `${o.order_number} · ` : ""}
+                    {o.order_date ? `Pentru ${new Date(o.order_date).toLocaleDateString("ro-RO")} ${o.time_slot ?? ""} · ` : ""}
+                    plasată {new Date(o.created_at).toLocaleString("ro-RO")} · {o.delivery_method}
                     {o.address ? ` · ${o.address}` : ""}
                     {o.email ? ` · ${o.email}` : ""}
                   </p>
@@ -276,5 +287,46 @@ function Card({ label, value }: { label: string; value: string }) {
       <p className="text-xs uppercase tracking-wide text-muted-foreground">{label}</p>
       <p className="mt-1 font-display text-3xl text-primary">{value}</p>
     </div>
+  );
+}
+
+function StockEditor() {
+  const [stock, setStock] = useState<Record<string, number>>({});
+  const [saved, setSaved] = useState<string | null>(null);
+  useEffect(() => {
+    supabase.from("product_stock").select("slug, stock").then(({ data }) =>
+      setStock(Object.fromEntries((data ?? []).map((r) => [r.slug, r.stock]))),
+    );
+  }, []);
+  async function save(slug: string) {
+    const { error } = await supabase
+      .from("product_stock")
+      .upsert({ slug, stock: Math.max(0, stock[slug] ?? 0), updated_at: new Date().toISOString() });
+    setSaved(error ? "Eroare la salvare" : `Salvat: ${slug}`);
+  }
+  return (
+    <section className="mt-6 rounded-xl border border-border bg-card p-5">
+      <h2 className="font-display text-2xl text-primary">Disponibilitate azi</h2>
+      <p className="text-sm text-muted-foreground">Numărul de bucăți afișat pe site. 0 = epuizat.</p>
+      <ul className="mt-4 divide-y divide-border">
+        {products.map((p) => (
+          <li key={p.slug} className="flex items-center gap-3 py-2">
+            <span className="min-w-0 flex-1 truncate text-sm">{p.name}</span>
+            <input
+              type="number"
+              min={0}
+              aria-label={`Stoc ${p.name}`}
+              value={stock[p.slug] ?? 0}
+              onChange={(e) => setStock((s) => ({ ...s, [p.slug]: Number(e.target.value) }))}
+              className="w-20 rounded-md border border-border bg-background px-2 py-1 text-center"
+            />
+            <button onClick={() => save(p.slug)} className="rounded-full bg-primary px-4 py-1.5 text-xs text-primary-foreground">
+              Salvează
+            </button>
+          </li>
+        ))}
+      </ul>
+      {saved && <p className="mt-2 text-xs text-olive">{saved}</p>}
+    </section>
   );
 }

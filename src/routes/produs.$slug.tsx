@@ -1,5 +1,8 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { useEffect } from "react";
+import { AddToCart, Availability } from "@/components/bakery/AddToCart";
+import { CartButton } from "@/components/bakery/CartDrawer";
+import { whatsappOrderUrl } from "@/lib/cart";
 import { Reveal } from "@/components/Reveal";
 import { track } from "@/lib/track";
 import { products, contact } from "@/components/bakery/data";
@@ -64,9 +67,12 @@ function ProductPage() {
           <Link to="/" className="font-display text-xl text-primary">
             Gluten Morgen
           </Link>
-          <Link to="/" hash="produse" className="text-sm text-foreground/70 hover:text-primary">
-            ← Toate produsele
-          </Link>
+          <div className="flex items-center gap-3">
+            <Link to="/" hash="produse" className="text-sm text-foreground/70 hover:text-primary">
+              ← Toate produsele
+            </Link>
+            <CartButton />
+          </div>
         </div>
       </header>
 
@@ -98,25 +104,17 @@ function ProductPage() {
             <p className="mt-5 text-base leading-relaxed text-foreground/75">{p.long}</p>
 
             <p className="mt-6 font-display text-4xl text-primary">{p.price} lei</p>
-            <p className="mt-1 text-sm text-muted-foreground">
-              {p.stock > 0 ? `În stoc acum: ${p.stock} bucăți` : "Stoc epuizat pentru astăzi"}
-            </p>
-
-            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <Link
-                to="/comanda"
-                search={{ produs: p.slug }}
-                onClick={() => track("order_click", p.slug)}
-                className="rounded-full bg-primary px-8 py-4 text-center text-sm font-bold text-primary-foreground transition-transform hover:scale-[1.02]"
-              >
-                {p.stock > 0 ? "Comandă online" : "Precomandă"}
-              </Link>
+            <div className="mt-2"><Availability slug={p.slug} /></div>
+            <div className="mt-6 max-w-sm"><AddToCart slug={p.slug} name={p.name} /></div>
+            <div className="mt-4 flex flex-col gap-3 sm:flex-row">
               <a
-                href={contact.whatsapp}
+                href={whatsappOrderUrl([{ name: p.name, qty: 1, price: p.price }])}
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => track("whatsapp_click", p.slug)}
                 className="rounded-full border border-border px-8 py-4 text-center text-sm font-bold text-primary transition-colors hover:bg-secondary"
               >
-                WhatsApp
+                Comandă prin WhatsApp
               </a>
               <a
                 href={contact.phoneHref}
