@@ -21,8 +21,8 @@ export function RequestForm({
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    const name = (v.name ?? "").trim();
-    const phone = (v.phone ?? "").trim();
+    const name = (v["name"] ?? "").trim();
+    const phone = (v["phone"] ?? "").trim();
     if (name.length < 2) return setError("Completează numele.");
     if (!/^[0-9+ ]{10,15}$/.test(phone)) return setError("Telefon invalid.");
     setError("");
@@ -36,9 +36,9 @@ export function RequestForm({
     const { error: err } = await supabase.from("orders").insert({
       customer_name: name.slice(0, 100),
       phone: phone.slice(0, 20),
-      email: (v.email ?? "").trim().slice(0, 255) || null,
+      email: (v["email"] ?? "").trim().slice(0, 255) || null,
       delivery_method: kind,
-      note: [details, (v.note ?? "").trim()].filter(Boolean).join(" — ").slice(0, 500) || null,
+      note: [details, (v["note"] ?? "").trim()].filter(Boolean).join(" — ").slice(0, 500) || null,
       items: [],
       total: 0,
       order_number: number,
