@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useEffect } from "react";
 import { cart, openState, useCart, useCartOpen, whatsappOrderUrl } from "@/lib/cart";
 import { track } from "@/lib/track";
+import { lineTotal, ROLL_SLUG } from "@/lib/pricing";
 
 export function QtyStepper({ value, onChange, label }: { value: number; onChange: (n: number) => void; label: string }) {
   return (
@@ -76,7 +77,7 @@ export function CartDrawer() {
                   <img src={i.image} alt={i.name} className="h-16 w-16 shrink-0 rounded-sm object-cover" loading="lazy" />
                   <div className="min-w-0 flex-1">
                     <p className="font-display text-lg leading-tight text-primary">{i.name}</p>
-                    <p className="text-xs text-muted-foreground">{i.weight} · {i.price} lei</p>
+                    <p className="text-xs text-muted-foreground">{i.weight} · {i.price} lei/buc.{i.slug === ROLL_SLUG && " · 4 buc. / 17 lei"}</p>
                     <div className="mt-2 flex items-center justify-between gap-2">
                       <QtyStepper value={i.qty} label={i.name} onChange={(n) => cart.setQty(i.slug, n)} />
                       <button
@@ -87,7 +88,7 @@ export function CartDrawer() {
                       </button>
                     </div>
                   </div>
-                  <p className="shrink-0 text-sm font-semibold">{i.price * i.qty} lei</p>
+                  <p className="shrink-0 text-sm font-semibold">{lineTotal(i.slug, i.price, i.qty)} lei</p>
                 </li>
               ))}
             </ul>

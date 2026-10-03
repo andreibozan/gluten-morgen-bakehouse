@@ -1,0 +1,3 @@
+- [ ] Actualizează prețurile produselor și oferta de 4 chifle în afișaj, coș și comenzi.
+- [ ] Afișează reducerile abonamentelor și oferta la cerere pentru evenimente.
+- [ ] Verifică prețurile și calculele în site.

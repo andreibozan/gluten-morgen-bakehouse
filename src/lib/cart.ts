@@ -2,6 +2,7 @@ import { useSyncExternalStore } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { products, contact } from "@/components/bakery/data";
 import { supabase } from "@/integrations/supabase/client";
+import { lineTotal } from "@/lib/pricing";
 
 export type CartLine = { slug: string; qty: number };
 const KEY = "gm_cart";
@@ -16,7 +17,7 @@ function read(): CartLine[] {
   } catch {
     cache = [];
   }
-  return cache!;
+  return cache ?? EMPTY;
 }
 function write(lines: CartLine[]) {
   cache = lines.filter((l) => l.qty > 0);
@@ -57,7 +58,7 @@ export function useCart() {
       return p ? { slug: p.slug, name: p.name, price: p.price, image: p.image, weight: p.weight, qty: l.qty } : null;
     })
     .filter((x): x is NonNullable<typeof x> => !!x);
-  const subtotal = items.reduce((s, i) => s + i.price * i.qty, 0);
+  const subtotal = items.reduce((s, i) => s + lineTotal(i.slug, i.price, i.qty), 0);
   const count = items.reduce((s, i) => s + i.qty, 0);
   return { items, subtotal, count };
 }
@@ -95,11 +96,11 @@ export function useStock() {
 }
 
 export function whatsappOrderUrl(
-  items: { name: string; qty: number; price: number }[],
+  items: { slug: string; name: string; qty: number; price: number }[],
   extra: { date?: string; slot?: string; name?: string; method?: string } = {},
 ) {
   const lines = items.length
-    ? items.map((i) => `- ${i.qty} × ${i.name} (${i.price * i.qty} lei)`).join("\n")
+    ? items.map((i) => `- ${i.qty} × ${i.name} (${lineTotal(i.slug, i.price, i.qty)} lei)`).join("\n")
     : "- ";
   const msg = `Salut! Vreau să comand:\n\n${lines}\n\nData: ${extra.date ?? ""}\nOra: ${extra.slot ?? ""}\nNume: ${extra.name ?? ""}\nLivrare/Ridicare: ${extra.method ?? ""}\n\nMulțumesc!`;
   return `${contact.whatsapp}?text=${encodeURIComponent(msg)}`;

@@ -6,6 +6,7 @@ import { track } from "@/lib/track";
 import { cart, openState, useCart, whatsappOrderUrl } from "@/lib/cart";
 import { QtyStepper } from "@/components/bakery/CartDrawer";
 import { deliveryConfig } from "@/components/bakery/config";
+import { lineTotal, ROLL_SLUG } from "@/lib/pricing";
 
 export const Route = createFileRoute("/comanda")({
   component: OrderPage,
@@ -86,7 +87,7 @@ function OrderPage() {
       delivery_method: method,
       address: method === "livrare" ? form.address.trim().slice(0, 300) : null,
       note: form.note.trim().slice(0, 500) || null,
-      items: items.map(({ slug, name, price, qty }) => ({ slug, name, price, qty })),
+      items: items.map(({ slug, name, price, qty }) => ({ slug, name, price, qty, line_total: lineTotal(slug, price, qty) })),
       total,
       order_date: date,
       time_slot: slot,
@@ -112,7 +113,7 @@ function OrderPage() {
           <Row k="Preluare" v={done.method === "livrare" ? `Livrare la ${form.address}` : `Ridicare din ${contact.addressFull}`} />
           <ul className="border-t border-border pt-3">
             {done.items.map((i) => (
-              <li key={i.slug} className="flex justify-between py-1"><span>{i.qty} × {i.name}</span><span>{i.qty * i.price} lei</span></li>
+              <li key={i.slug} className="flex justify-between py-1"><span>{i.qty} × {i.name}</span><span>{lineTotal(i.slug, i.price, i.qty)} lei</span></li>
             ))}
           </ul>
           <div className="flex justify-between border-t border-border pt-3 font-display text-2xl text-primary"><span>Total</span><span>{done.total} lei</span></div>
@@ -146,11 +147,12 @@ function OrderPage() {
                   <img src={i.image} alt={i.name} className="h-12 w-12 shrink-0 rounded-sm object-cover" />
                   <p className="min-w-0 flex-1 truncate text-sm font-medium">{i.name}</p>
                   <QtyStepper value={i.qty} label={i.name} onChange={(n) => cart.setQty(i.slug, n)} />
-                  <span className="w-16 shrink-0 text-right text-sm">{i.qty * i.price} lei</span>
+                  <span className="w-16 shrink-0 text-right text-sm">{lineTotal(i.slug, i.price, i.qty)} lei</span>
                 </li>
               ))}
             </ul>
           )}
+          <p className="mt-3 text-xs text-muted-foreground">Chifle: 5 lei/buc. sau 17 lei la fiecare 4 bucăți.</p>
         </section>
 
         <Step n={1} title="Ridicare sau livrare">
