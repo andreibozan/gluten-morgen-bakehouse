@@ -2,6 +2,7 @@ import { supabase } from "@/integrations/supabase/client";
 
 export type EventType =
   | "page_view"
+  | "request_submit"
   | "product_view"
   | "order_click"
   | "whatsapp_click"

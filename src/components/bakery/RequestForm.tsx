@@ -45,7 +45,7 @@ export function RequestForm({
     });
     setSending(false);
     if (err) return setError("Nu am putut trimite cererea. Încearcă din nou sau sună-ne.");
-    track("order_submit", kind);
+    track("request_submit", kind);
     setDone(number);
   }
 
