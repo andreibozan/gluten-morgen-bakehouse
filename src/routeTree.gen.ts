@@ -11,8 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AbonamenteRouteImport } from './routes/abonamente'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ComandaRouteImport } from './routes/comanda'
+import { Route as EvenimenteRouteImport } from './routes/evenimente'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as ProdusSlugRouteImport } from './routes/produs.$slug'
@@ -26,6 +28,11 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AbonamenteRoute = AbonamenteRouteImport.update({
+  id: '/abonamente',
+  path: '/abonamente',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
@@ -34,6 +41,11 @@ const AuthRoute = AuthRouteImport.update({
 const ComandaRoute = ComandaRouteImport.update({
   id: '/comanda',
   path: '/comanda',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EvenimenteRoute = EvenimenteRouteImport.update({
+  id: '/evenimente',
+  path: '/evenimente',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -54,16 +66,20 @@ const ProdusSlugRoute = ProdusSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/abonamente': typeof AbonamenteRoute
   '/auth': typeof AuthRoute
   '/comanda': typeof ComandaRoute
+  '/evenimente': typeof EvenimenteRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/produs/$slug': typeof ProdusSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/abonamente': typeof AbonamenteRoute
   '/auth': typeof AuthRoute
   '/comanda': typeof ComandaRoute
+  '/evenimente': typeof EvenimenteRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/produs/$slug': typeof ProdusSlugRoute
@@ -72,8 +88,10 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/abonamente': typeof AbonamenteRoute
   '/auth': typeof AuthRoute
   '/comanda': typeof ComandaRoute
+  '/evenimente': typeof EvenimenteRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/produs/$slug': typeof ProdusSlugRoute
@@ -81,15 +99,32 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/auth' | '/comanda' | '/sitemap.xml' | '/admin' | '/produs/$slug'
+    | '/'
+    | '/abonamente'
+    | '/auth'
+    | '/comanda'
+    | '/evenimente'
+    | '/sitemap.xml'
+    | '/admin'
+    | '/produs/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/comanda' | '/sitemap.xml' | '/admin' | '/produs/$slug'
+  to:
+    | '/'
+    | '/abonamente'
+    | '/auth'
+    | '/comanda'
+    | '/evenimente'
+    | '/sitemap.xml'
+    | '/admin'
+    | '/produs/$slug'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
+    | '/abonamente'
     | '/auth'
     | '/comanda'
+    | '/evenimente'
     | '/sitemap.xml'
     | '/_authenticated/admin'
     | '/produs/$slug'
@@ -98,8 +133,10 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AbonamenteRoute: typeof AbonamenteRoute
   AuthRoute: typeof AuthRoute
   ComandaRoute: typeof ComandaRoute
+  EvenimenteRoute: typeof EvenimenteRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ProdusSlugRoute: typeof ProdusSlugRoute
 }
@@ -120,6 +157,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/abonamente': {
+      id: '/abonamente'
+      path: '/abonamente'
+      fullPath: '/abonamente'
+      preLoaderRoute: typeof AbonamenteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
@@ -132,6 +176,13 @@ declare module '@tanstack/react-router' {
       path: '/comanda'
       fullPath: '/comanda'
       preLoaderRoute: typeof ComandaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/evenimente': {
+      id: '/evenimente'
+      path: '/evenimente'
+      fullPath: '/evenimente'
+      preLoaderRoute: typeof EvenimenteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -172,8 +223,10 @@ const AuthenticatedRouteRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AbonamenteRoute: AbonamenteRoute,
   AuthRoute: AuthRoute,
   ComandaRoute: ComandaRoute,
+  EvenimenteRoute: EvenimenteRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ProdusSlugRoute: ProdusSlugRoute,
 }

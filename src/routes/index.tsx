@@ -463,6 +463,21 @@ function Index() {
       </section>
 
       {/* FOOTER */}
+      <section className="container-x py-20">
+        <div className="grid gap-4 md:grid-cols-2">
+          <Link to="/abonamente" className="rounded-sm border border-border bg-card p-8 transition-colors hover:border-primary">
+            <p className="eyebrow">Abonamente</p>
+            <h2 className="mt-2 font-display text-3xl">Pâinea ta, în fiecare săptămână</h2>
+            <p className="mt-2 text-sm text-muted-foreground">Rezervată pentru tine, în ziua preferată. →</p>
+          </Link>
+          <Link to="/evenimente" className="rounded-sm border border-border bg-card p-8 transition-colors hover:border-primary">
+            <p className="eyebrow">Evenimente & firme</p>
+            <h2 className="mt-2 font-display text-3xl">Nunți, botezuri, restaurante</h2>
+            <p className="mt-2 text-sm text-muted-foreground">Cere o ofertă personalizată. →</p>
+          </Link>
+        </div>
+      </section>
+
       <footer className="bg-foreground py-16 text-background/80">
         <div className="container-x grid gap-12 md:grid-cols-4">
           <div>
