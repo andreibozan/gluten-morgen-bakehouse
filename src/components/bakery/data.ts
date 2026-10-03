@@ -38,7 +38,7 @@ export const products: Product[] = [
     long: "Rețeta cu care am început. Aluatul se odihnește peste noapte la rece, apoi este copt pe vatră, cu abur, până când coaja devine adânc caramelizată. Miezul rămâne elastic și umed, cu alveole neregulate — semnul unei fermentații lente.",
     pairing: "Cu unt de fermă, ouă ochiuri sau o supă groasă de legume.",
     weight: "900 g", ingredients: "Făină albă tip 650, apă, maia naturală, sare de mare",
-    allergens: "Conține gluten (grâu).", fermentation: "24 de ore", price: 24, freshToday: true, stock: 12,
+    allergens: "Conține gluten (grâu).", fermentation: "24 de ore", price: 28, freshToday: true, stock: 12,
   },
   {
     slug: "paine-cheddar-jalapenos", name: "Pâine cu cheddar și jalapeños", image: pCheddar,
@@ -46,7 +46,7 @@ export const products: Product[] = [
     long: "Cuburi de cheddar maturat sunt împăturite în aluat, iar o parte se topesc pe coajă în cuptor, caramelizându-se. Feliile de jalapeños adaugă prospețime și o căldură plăcută, fără să acopere gustul maielei.",
     pairing: "Cu bere artizanală, chili, ouă jumări sau prăjită pe grătar.",
     weight: "800 g", ingredients: "Făină tip 650, cheddar, jalapeños, apă, maia naturală, sare",
-    allergens: "Conține gluten (grâu) și lapte.", fermentation: "24 de ore", price: 32, freshToday: true, stock: 6,
+    allergens: "Conține gluten (grâu) și lapte.", fermentation: "24 de ore", price: 35, freshToday: true, stock: 6,
   },
   {
     slug: "paine-usturoi-rozmarin", name: "Pâine cu usturoi și rozmarin", image: pUsturoi,
@@ -54,7 +54,7 @@ export const products: Product[] = [
     long: "Coacem căței întregi de usturoi până devin cremoși și dulci, apoi îi împăturim în aluat împreună cu rozmarin proaspăt tocat. Aroma umple bucătăria când o încălzești.",
     pairing: "Lângă friptură, paste, supă cremă sau doar cu ulei de măsline.",
     weight: "800 g", ingredients: "Făină tip 650, usturoi, rozmarin, apă, maia naturală, sare",
-    allergens: "Conține gluten (grâu).", fermentation: "24 de ore", price: 28, freshToday: true, stock: 6,
+    allergens: "Conține gluten (grâu).", fermentation: "24 de ore", price: 32, freshToday: true, stock: 6,
   },
   {
     slug: "paine-rosii-busuioc", name: "Pâine cu roșii uscate și busuioc", image: pRosii,
@@ -62,7 +62,7 @@ export const products: Product[] = [
     long: "Roșiile uscate la soare sunt tocate și adăugate la final, alături de busuioc, ca să rămână vizibile în miez. Rezultatul: o pâine aromată, ușor dulce, cu miez colorat.",
     pairing: "Cu mozzarella, burrata, ulei de măsline sau pentru bruschete.",
     weight: "800 g", ingredients: "Făină tip 650, roșii uscate, busuioc, apă, maia naturală, sare",
-    allergens: "Conține gluten (grâu).", fermentation: "24 de ore", price: 30, freshToday: true, stock: 6,
+    allergens: "Conține gluten (grâu).", fermentation: "24 de ore", price: 32, freshToday: true, stock: 6,
   },
   {
     slug: "chifle-artizanale", name: "Chifle artizanale 110 g", image: pChifle,
@@ -94,7 +94,7 @@ export const products: Product[] = [
     long: "În fiecare luni anunțăm pâinea săptămânii: o rețetă specială, de sezon sau experimentală, coaptă în cantitate limitată. Se face doar pe bază de precomandă — urmărește-ne lunea și rezervă-ți bucata.",
     pairing: "Surpriza săptămânii — îți spunem lunea cu ce merge cel mai bine.",
     weight: "variabil", ingredients: "Se anunță în fiecare luni",
-    allergens: "Se anunță odată cu rețeta.", fermentation: "24–36 de ore", price: 30, freshToday: false, stock: 0,
+    allergens: "Se anunță odată cu rețeta.", fermentation: "24–36 de ore", price: 40, freshToday: false, stock: 0,
     preorderOnly: true,
   },
 ];

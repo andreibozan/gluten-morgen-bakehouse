@@ -108,7 +108,7 @@ function ProductPage() {
             <div className="mt-6 max-w-sm"><AddToCart slug={p.slug} name={p.name} /></div>
             <div className="mt-4 flex flex-col gap-3 sm:flex-row">
               <a
-                href={whatsappOrderUrl([{ name: p.name, qty: 1, price: p.price }])}
+                href={whatsappOrderUrl([{ slug: p.slug, name: p.name, qty: 1, price: p.price }])}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => track("whatsapp_click", p.slug)}
