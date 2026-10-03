@@ -1,3 +1,4 @@
+import { products } from "./data";
 import { useState } from "react";
 import { cart, useStock } from "@/lib/cart";
 import { track } from "@/lib/track";
@@ -5,6 +6,8 @@ import { QtyStepper } from "./CartDrawer";
 
 export function Availability({ slug }: { slug: string }) {
   const { data } = useStock();
+  if (products.find((p) => p.slug === slug)?.preorderOnly)
+    return <p className="text-xs font-semibold text-accent">● Se anunță lunea — doar pe precomandă</p>;
   if (!data) return null;
   const n = data[slug] ?? 0;
   return n > 0 ? (
