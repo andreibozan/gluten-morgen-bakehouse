@@ -8,6 +8,7 @@ export type EventType =
   | "whatsapp_click"
   | "phone_click"
   | "newsletter_signup"
+  | "instagram_click"
   | "order_submitted"
   | "add_to_cart"
   | "remove_from_cart"
