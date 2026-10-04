@@ -178,6 +178,14 @@ function ProductPage() {
           <a href={`mailto:${contact.email}`} className="hover:text-accent">
             {contact.email}
           </a>
+          <a
+            href={contact.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-accent"
+          >
+            @glutenmorgen.bake
+          </a>
           <span>{contact.addressFull}</span>
         </div>
       </footer>

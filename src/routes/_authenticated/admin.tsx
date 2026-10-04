@@ -36,6 +36,7 @@ const EVENT_LABELS: Record<string, string> = {
   order_click: "Click Comandă",
   whatsapp_click: "Click WhatsApp",
   phone_click: "Click telefon",
+  instagram_click: "Click Instagram",
   newsletter_signup: "Abonări newsletter",
   order_submitted: "Comenzi trimise",
   add_to_cart: "Adăugări în coș",

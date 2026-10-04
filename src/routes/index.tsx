@@ -18,6 +18,16 @@ const NAV = [
   { href: "#faq", label: "Întrebări" },
 ];
 
+function InstagramIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.2" cy="6.8" r="0.9" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
 const WHATSAPP = contact.whatsapp;
 
 const productSchema = {
@@ -113,6 +123,16 @@ function Index() {
             </a>
           </nav>
           <div className="flex items-center gap-1">
+            <a
+              href={contact.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => track("instagram_click")}
+              aria-label="Instagram @glutenmorgen.bake"
+              className="flex h-10 w-10 items-center justify-center text-foreground/70 transition-colors hover:text-primary"
+            >
+              <InstagramIcon className="h-5 w-5" />
+            </a>
           <CartButton />
           <button
             onClick={() => setMenuOpen((v) => !v)}
@@ -487,14 +507,15 @@ function Index() {
             <p>Sâmbătă: 07:00 – 15:00</p>
             <p>Duminică: închis</p>
             <div className="flex gap-4 pt-2">
-              <a href="https://instagram.com" className="hover:text-accent">
-                Instagram
-              </a>
-              <a href="https://facebook.com" className="hover:text-accent">
-                Facebook
-              </a>
-              <a href="https://tiktok.com" className="hover:text-accent">
-                TikTok
+              <a
+                href={contact.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => track("instagram_click")}
+                className="inline-flex items-center gap-1.5 hover:text-accent"
+              >
+                <InstagramIcon className="h-4 w-4" />
+                @glutenmorgen.bake
               </a>
             </div>
           </div>

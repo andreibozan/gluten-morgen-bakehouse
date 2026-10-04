@@ -104,6 +104,7 @@ export const contact = {
   phoneHref: "tel:+40745987108",
   whatsapp: "https://wa.me/40745987108",
   email: "glutenmorgenbakery@gmail.com",
+  instagram: "https://instagram.com/glutenmorgen.bake",
   addressStreet: "Str. Depozitelor nr. 7",
   addressCity: "Deva",
   addressFull: "Str. Depozitelor nr. 7, Deva",
