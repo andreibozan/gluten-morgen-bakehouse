@@ -70,13 +70,6 @@ export const Route = createFileRoute("/")({
   }),
 });
 
-function Stars() {
-  return (
-    <div className="text-accent" aria-label="5 din 5 stele">
-      ★★★★★
-    </div>
-  );
-}
 
 function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
