@@ -158,8 +158,3 @@ export const faqs = [
   },
 ];
 
-export const reviews = [
-  { text: "Cea mai bună pâine cu maia pe care am mâncat-o.", author: "Andreea M." },
-  { text: "Crocanță perfectă și miez incredibil.", author: "Radu P." },
-  { text: "Comandăm în fiecare săptămână.", author: "Familia Ionescu" },
-];
