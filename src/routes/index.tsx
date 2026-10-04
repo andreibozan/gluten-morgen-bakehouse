@@ -5,7 +5,7 @@ import { AddToCart, Availability } from "@/components/bakery/AddToCart";
 import { Reveal } from "@/components/Reveal";
 import { track } from "@/lib/track";
 import { Countdown } from "@/components/bakery/Countdown";
-import { products, gallery, steps, schedule, faqs, reviews, contact } from "@/components/bakery/data";
+import { products, gallery, steps, schedule, faqs, contact } from "@/components/bakery/data";
 import heroImg from "@/assets/hero-sourdough.jpg";
 import gAluat from "@/assets/g-aluat.jpg";
 
@@ -341,24 +341,6 @@ function Index() {
         </div>
       </section>
 
-      {/* RECENZII */}
-      <section className="border-y border-border bg-secondary/50 py-20 md:py-28">
-        <div className="container-x grid gap-6 md:grid-cols-3">
-          {reviews.map((r, i) => (
-            <Reveal key={r.author} delay={i * 90}>
-              <figure className="h-full rounded-sm border border-border bg-card p-8">
-                <Stars />
-                <blockquote className="mt-4 font-display text-2xl leading-snug text-primary">
-                  „{r.text}”
-                </blockquote>
-                <figcaption className="mt-4 text-xs tracking-[0.2em] text-muted-foreground uppercase">
-                  {r.author} · Google Reviews
-                </figcaption>
-              </figure>
-            </Reveal>
-          ))}
-        </div>
-      </section>
 
       {/* PROGRAM COACERE */}
       <section id="program" className="container-x py-24 md:py-36">
