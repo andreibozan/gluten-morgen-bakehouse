@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { CartDrawer } from "../components/bakery/CartDrawer";
+import { CookieBanner } from "../components/bakery/CookieBanner";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
@@ -137,6 +138,7 @@ function RootComponent() {
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
       <CartDrawer />
+      <CookieBanner />
     </QueryClientProvider>
   );
 }

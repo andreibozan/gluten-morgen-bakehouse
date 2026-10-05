@@ -30,6 +30,7 @@ function sessionId() {
 
 export function track(type: EventType, productSlug?: string) {
   if (typeof window === "undefined") return;
+  if (localStorage.getItem("gm_cookie_consent") === "necessary") return;
   void supabase
     .from("events")
     .insert({

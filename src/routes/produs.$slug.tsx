@@ -188,6 +188,7 @@ function ProductPage() {
           </a>
           <span>{contact.addressFull}</span>
         </div>
+        <div className="container-x mt-6 border-t border-background/15 pt-4 text-background/60"><LegalLinks /></div>
       </footer>
     </div>
   );

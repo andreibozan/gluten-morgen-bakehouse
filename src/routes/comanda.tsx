@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ConsentCheckbox } from "@/components/bakery/LegalLinks";
 import { useEffect, useMemo, useState } from "react";
 import { contact } from "@/components/bakery/data";
 import { supabase } from "@/integrations/supabase/client";
