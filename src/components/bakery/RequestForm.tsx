@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { track } from "@/lib/track";
+import { ConsentCheckbox } from "@/components/bakery/LegalLinks";
 
 type Field = { name: string; label: string; type?: string; options?: string[] };
 
@@ -17,6 +18,7 @@ export function RequestForm({
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState<string | null>(null);
   const [error, setError] = useState("");
+  const [consent, setConsent] = useState(false);
   const set = (k: string, val: string) => setV((p) => ({ ...p, [k]: val }));
 
   async function submit(e: React.FormEvent) {
@@ -25,6 +27,7 @@ export function RequestForm({
     const phone = (v["phone"] ?? "").trim();
     if (name.length < 2) return setError("Completează numele.");
     if (!/^[0-9+ ]{10,15}$/.test(phone)) return setError("Telefon invalid.");
+    if (!consent) return setError("Bifează acordul cu termenii.");
     setError("");
     setSending(true);
     const number = "GM-" + Date.now().toString(36).toUpperCase().slice(-6);
@@ -82,6 +85,7 @@ export function RequestForm({
       <label className="grid gap-1 text-sm md:col-span-2">Detalii
         <textarea className={input} rows={3} maxLength={400} onChange={(e) => set("note", e.target.value)} />
       </label>
+      <ConsentCheckbox checked={consent} onChange={setConsent} />
       {error && <p className="text-sm text-destructive md:col-span-2">{error}</p>}
       <button disabled={sending} className="rounded-full bg-primary px-6 py-4 text-xs font-bold tracking-wide text-primary-foreground uppercase hover:bg-primary/90 disabled:opacity-60 md:col-span-2">
         {sending ? "Se trimite…" : submitLabel}

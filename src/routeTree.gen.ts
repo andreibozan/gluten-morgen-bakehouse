@@ -14,8 +14,11 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as AbonamenteRouteImport } from './routes/abonamente'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ComandaRouteImport } from './routes/comanda'
+import { Route as ConfidentialitateRouteImport } from './routes/confidentialitate'
+import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as EvenimenteRouteImport } from './routes/evenimente'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as TermeniRouteImport } from './routes/termeni'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as ProdusSlugRouteImport } from './routes/produs.$slug'
 
@@ -43,6 +46,16 @@ const ComandaRoute = ComandaRouteImport.update({
   path: '/comanda',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConfidentialitateRoute = ConfidentialitateRouteImport.update({
+  id: '/confidentialitate',
+  path: '/confidentialitate',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CookiesRoute = CookiesRouteImport.update({
+  id: '/cookies',
+  path: '/cookies',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EvenimenteRoute = EvenimenteRouteImport.update({
   id: '/evenimente',
   path: '/evenimente',
@@ -51,6 +64,11 @@ const EvenimenteRoute = EvenimenteRouteImport.update({
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermeniRoute = TermeniRouteImport.update({
+  id: '/termeni',
+  path: '/termeni',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
@@ -69,8 +87,11 @@ export interface FileRoutesByFullPath {
   '/abonamente': typeof AbonamenteRoute
   '/auth': typeof AuthRoute
   '/comanda': typeof ComandaRoute
+  '/confidentialitate': typeof ConfidentialitateRoute
+  '/cookies': typeof CookiesRoute
   '/evenimente': typeof EvenimenteRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/termeni': typeof TermeniRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/produs/$slug': typeof ProdusSlugRoute
 }
@@ -79,8 +100,11 @@ export interface FileRoutesByTo {
   '/abonamente': typeof AbonamenteRoute
   '/auth': typeof AuthRoute
   '/comanda': typeof ComandaRoute
+  '/confidentialitate': typeof ConfidentialitateRoute
+  '/cookies': typeof CookiesRoute
   '/evenimente': typeof EvenimenteRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/termeni': typeof TermeniRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/produs/$slug': typeof ProdusSlugRoute
 }
@@ -91,8 +115,11 @@ export interface FileRoutesById {
   '/abonamente': typeof AbonamenteRoute
   '/auth': typeof AuthRoute
   '/comanda': typeof ComandaRoute
+  '/confidentialitate': typeof ConfidentialitateRoute
+  '/cookies': typeof CookiesRoute
   '/evenimente': typeof EvenimenteRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/termeni': typeof TermeniRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/produs/$slug': typeof ProdusSlugRoute
 }
@@ -103,8 +130,11 @@ export interface FileRouteTypes {
     | '/abonamente'
     | '/auth'
     | '/comanda'
+    | '/confidentialitate'
+    | '/cookies'
     | '/evenimente'
     | '/sitemap.xml'
+    | '/termeni'
     | '/admin'
     | '/produs/$slug'
   fileRoutesByTo: FileRoutesByTo
@@ -113,8 +143,11 @@ export interface FileRouteTypes {
     | '/abonamente'
     | '/auth'
     | '/comanda'
+    | '/confidentialitate'
+    | '/cookies'
     | '/evenimente'
     | '/sitemap.xml'
+    | '/termeni'
     | '/admin'
     | '/produs/$slug'
   id:
@@ -124,8 +157,11 @@ export interface FileRouteTypes {
     | '/abonamente'
     | '/auth'
     | '/comanda'
+    | '/confidentialitate'
+    | '/cookies'
     | '/evenimente'
     | '/sitemap.xml'
+    | '/termeni'
     | '/_authenticated/admin'
     | '/produs/$slug'
   fileRoutesById: FileRoutesById
@@ -136,8 +172,11 @@ export interface RootRouteChildren {
   AbonamenteRoute: typeof AbonamenteRoute
   AuthRoute: typeof AuthRoute
   ComandaRoute: typeof ComandaRoute
+  ConfidentialitateRoute: typeof ConfidentialitateRoute
+  CookiesRoute: typeof CookiesRoute
   EvenimenteRoute: typeof EvenimenteRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  TermeniRoute: typeof TermeniRoute
   ProdusSlugRoute: typeof ProdusSlugRoute
 }
 
@@ -178,6 +217,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ComandaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/confidentialitate': {
+      id: '/confidentialitate'
+      path: '/confidentialitate'
+      fullPath: '/confidentialitate'
+      preLoaderRoute: typeof ConfidentialitateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cookies': {
+      id: '/cookies'
+      path: '/cookies'
+      fullPath: '/cookies'
+      preLoaderRoute: typeof CookiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/evenimente': {
       id: '/evenimente'
       path: '/evenimente'
@@ -190,6 +243,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/termeni': {
+      id: '/termeni'
+      path: '/termeni'
+      fullPath: '/termeni'
+      preLoaderRoute: typeof TermeniRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin': {
@@ -226,8 +286,11 @@ const rootRouteChildren: RootRouteChildren = {
   AbonamenteRoute: AbonamenteRoute,
   AuthRoute: AuthRoute,
   ComandaRoute: ComandaRoute,
+  ConfidentialitateRoute: ConfidentialitateRoute,
+  CookiesRoute: CookiesRoute,
   EvenimenteRoute: EvenimenteRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  TermeniRoute: TermeniRoute,
   ProdusSlugRoute: ProdusSlugRoute,
 }
 export const routeTree = rootRouteImport

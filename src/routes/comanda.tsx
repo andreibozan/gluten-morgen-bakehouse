@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { ConsentCheckbox } from "@/components/bakery/LegalLinks";
 import { useEffect, useMemo, useState } from "react";
 import { contact } from "@/components/bakery/data";
 import { supabase } from "@/integrations/supabase/client";
@@ -48,6 +49,7 @@ function OrderPage() {
   const [date, setDate] = useState("");
   const [slot, setSlot] = useState("");
   const [form, setForm] = useState({ customer_name: "", phone: "", email: "", address: "", note: "" });
+  const [consent, setConsent] = useState(false);
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState<null | { number: string; items: typeof items; total: number; date: string; slot: string; method: string }>(null);
   const [error, setError] = useState<string | null>(null);
@@ -71,6 +73,7 @@ function OrderPage() {
     e.preventDefault();
     setError(null);
     if (items.length === 0) return setError("Coșul este gol.");
+    if (!consent) return setError("Bifează acordul cu termenii și prelucrarea datelor.");
     if (!date) return setError("Alege data.");
     if (!slot) return setError("Alege intervalul orar.");
     if (form.customer_name.trim().length < 2) return setError("Introdu numele tău.");
@@ -210,6 +213,7 @@ function OrderPage() {
           </div>
         </Step>
 
+        <ConsentCheckbox checked={consent} onChange={setConsent} />
         {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
 
         <button type="submit" disabled={sending} className="w-full rounded-full bg-primary py-4 text-sm font-bold tracking-wide text-primary-foreground uppercase disabled:opacity-60">

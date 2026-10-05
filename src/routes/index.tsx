@@ -530,17 +530,8 @@ function Index() {
             />
           </div>
         </div>
-        <div className="container-x mt-12 flex flex-wrap gap-x-6 gap-y-2 border-t border-background/15 pt-6 text-xs text-background/60">
-          <span>© {new Date().getFullYear()} Gluten Morgen</span>
-          <a href="https://anpc.ro" className="hover:text-accent">
-            ANPC
-          </a>
-          <a href="#faq" className="hover:text-accent">
-            Politica GDPR
-          </a>
-          <a href="#faq" className="hover:text-accent">
-            Termeni și condiții
-          </a>
+        <div className="container-x mt-12 border-t border-background/15 pt-6 text-background/60">
+          <LegalLinks />
         </div>
       </footer>
 
