@@ -1,4 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { LegalLinks } from "@/components/bakery/LegalLinks";
 import { useEffect } from "react";
 import { AddToCart, Availability } from "@/components/bakery/AddToCart";
 import { CartButton } from "@/components/bakery/CartDrawer";
