@@ -1,3 +1,6 @@
-- [ ] Actualizează prețurile produselor și oferta de 4 chifle în afișaj, coș și comenzi.
-- [ ] Afișează reducerile abonamentelor și oferta la cerere pentru evenimente.
-- [ ] Verifică prețurile și calculele în site.
+- [x] Prețuri produse și ofertă 4 chifle.
+- [x] Reduceri abonamente și ofertă evenimente afișate.
+- [x] Pagini legale, ANPC SAL/SOL, banner cookies, acord GDPR pe formulare.
+- [ ] Date firmă reale (denumire, CUI, Reg. Com.) — așteaptă utilizatorul.
+- [ ] Taxă livrare și intervale orare reale — așteaptă utilizatorul.
+- [ ] Buton recenzii Google — după aprobarea profilului.

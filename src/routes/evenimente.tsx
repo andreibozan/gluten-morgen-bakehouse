@@ -25,6 +25,7 @@ function Page() {
         <p className="eyebrow">Evenimente & firme</p>
         <h1 className="mt-2 font-display text-5xl md:text-6xl">Pâine artizanală pentru zilele importante</h1>
         <p className="mt-4 max-w-2xl text-muted-foreground">Coacem pentru nunți, botezuri, petreceri, birouri și restaurante: pâini întregi, baghete, chifle de 110 g sau platouri feliate. Spune-ne data și numărul de invitați — revenim cu o ofertă. Recomandăm comanda cu cel puțin 5 zile înainte.</p>
+        <p className="mt-6 inline-block rounded-sm border border-accent bg-card px-4 py-3 text-sm"><strong>Pachet eveniment:</strong> ofertă în funcție de cerere — prețul depinde de cantitate și sortimente.</p>
         <h2 className="mt-12 mb-6 font-display text-3xl">Cere o ofertă</h2>
         <RequestForm
           kind="eveniment"
