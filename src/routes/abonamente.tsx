@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { RequestForm } from "@/components/bakery/RequestForm";
 import { products } from "@/components/bakery/data";
+import { subscriptionPlans as plans, subscriptionUnitPrice, formatLei } from "@/lib/pricing";
 
 export const Route = createFileRoute("/abonamente")({
   head: () => ({
@@ -16,11 +17,6 @@ export const Route = createFileRoute("/abonamente")({
   component: Page,
 });
 
-const plans = [
-  { name: "Săptămânal", text: "O pâine la alegere, în fiecare săptămână, în ziua preferată." },
-  { name: "De două ori pe săptămână", text: "Două livrări sau ridicări pe săptămână — pentru familii." },
-  { name: "Familie", text: "Pâine + chifle artizanale, pentru mic dejunul de weekend." },
-];
 
 function Page() {
   return (
@@ -29,12 +25,14 @@ function Page() {
       <section className="container-x max-w-4xl">
         <p className="eyebrow">Abonamente</p>
         <h1 className="mt-2 font-display text-5xl md:text-6xl">Pâinea ta, rezervată în fiecare săptămână</h1>
-        <p className="mt-4 max-w-2xl text-muted-foreground">Nu mai riști să găsești raftul gol. Alegi planul, sortimentul și ziua, iar noi îți păstrăm pâinea proaspătă. Prețul se confirmă telefonic.</p>
+        <p className="mt-4 max-w-2xl text-muted-foreground">Nu mai riști să găsești raftul gol. Alegi planul, sortimentul și ziua, iar noi îți păstrăm pâinea proaspătă. Reducerea se aplică la prețul fiecărei bucăți.</p>
         <div className="mt-10 grid gap-4 md:grid-cols-3">
           {plans.map((p) => (
             <div key={p.name} className="rounded-sm border border-border bg-card p-6">
               <h2 className="font-display text-2xl">{p.name}</h2>
+              <p className="mt-1 font-display text-3xl text-primary">−{p.discount}%</p>
               <p className="mt-2 text-sm text-muted-foreground">{p.text}</p>
+              <p className="mt-3 text-xs text-muted-foreground">Ex.: Pâine țărănească {formatLei(subscriptionUnitPrice(28, p.discount))} în loc de 28 lei</p>
             </div>
           ))}
         </div>
