@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { LegalPage } from "@/components/bakery/LegalPage";
-import { company } from "@/components/bakery/LegalLinks";
+import { companyLine } from "@/components/bakery/LegalLinks";
 import { contact } from "@/components/bakery/data";
 
 export const Route = createFileRoute("/termeni")({
@@ -16,7 +16,7 @@ export const Route = createFileRoute("/termeni")({
   }),
   component: () => (
     <LegalPage title="Termeni și condiții">
-      <p>Site operat de {company.name}, CUI {company.cui}, Reg. Com. {company.regCom}, {contact.addressFull}. Contact: {contact.phone}, {contact.email}.</p>
+      <p>Site operat de Gluten Morgen{companyLine() && `, ${companyLine()}`}, {contact.addressFull}. Contact: {contact.phone}, {contact.email}.</p>
       <h2>Comenzi</h2>
       <p>Comenzile se plasează cu cel puțin 24 de ore înainte. Comanda devine fermă după confirmarea telefonică din partea noastră.</p>
       <h2>Prețuri și plată</h2>

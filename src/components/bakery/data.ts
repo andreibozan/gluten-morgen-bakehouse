@@ -29,11 +29,12 @@ export type Product = {
   freshToday: boolean;
   stock: number;
   preorderOnly?: boolean;
+  badge?: "Bestseller" | "Signature" | "Weekly drop" | "Everyday";
 };
 
 export const products: Product[] = [
   {
-    slug: "paine-taraneasca", name: "Pâine țărănească", image: pTaraneasca,
+    slug: "paine-taraneasca", badge: "Bestseller", name: "Pâine țărănească", image: pTaraneasca,
     description: "Clasicul casei: coajă groasă, caramelizată, miez elastic și un gust ușor acrișor.",
     long: "Rețeta cu care am început. Aluatul se odihnește peste noapte la rece, apoi este copt pe vatră, cu abur, până când coaja devine adânc caramelizată. Miezul rămâne elastic și umed, cu alveole neregulate — semnul unei fermentații lente.",
     pairing: "Cu unt de fermă, ouă ochiuri sau o supă groasă de legume.",
@@ -41,7 +42,7 @@ export const products: Product[] = [
     allergens: "Conține gluten (grâu).", fermentation: "24 de ore", price: 28, freshToday: true, stock: 12,
   },
   {
-    slug: "paine-cheddar-jalapenos", name: "Pâine cu cheddar și jalapeños", image: pCheddar,
+    slug: "paine-cheddar-jalapenos", badge: "Signature", name: "Pâine cu cheddar și jalapeños", image: pCheddar,
     description: "Cheddar maturat topit în coajă și jalapeños pentru un final ușor iute.",
     long: "Cuburi de cheddar maturat sunt împăturite în aluat, iar o parte se topesc pe coajă în cuptor, caramelizându-se. Feliile de jalapeños adaugă prospețime și o căldură plăcută, fără să acopere gustul maielei.",
     pairing: "Cu bere artizanală, chili, ouă jumări sau prăjită pe grătar.",
@@ -65,7 +66,7 @@ export const products: Product[] = [
     allergens: "Conține gluten (grâu).", fermentation: "24 de ore", price: 32, freshToday: true, stock: 6,
   },
   {
-    slug: "chifle-artizanale", name: "Chifle artizanale 110 g", image: pChifle,
+    slug: "chifle-artizanale", badge: "Everyday", name: "Chifle artizanale 110 g", image: pChifle,
     description: "Chifle cu maia de 110 g, coapte dimineața. Pentru mic dejun sau burgeri.",
     long: "Aluat cu maia, modelat manual în chifle de 110 g și copt până la o culoare aurie. Cele mai bune în prima zi, ușor încălzite.",
     pairing: "Pentru burgeri de casă, sandvișuri sau mic dejun în familie.",
@@ -83,13 +84,13 @@ export const products: Product[] = [
   {
     slug: "paine-integrala", name: "Pâine integrală", image: pIntegrala,
     description: "Făină integrală, fermentație lungă. Densă, aromată, sățioasă.",
-    long: "Făina integrală păstrează tărâțele și germenele bobului. Fermentația lungă face pâinea mai ușor de digerat și bogată în aromă de alună coaptă.",
+    long: "Făina integrală păstrează tărâțele și germenele bobului. Fermentația lungă îi dă o aromă bogată, de alună coaptă.",
     pairing: "Cu brânză proaspătă, avocado sau miere.",
     weight: "800 g", ingredients: "Făină integrală de grâu, apă, maia naturală, sare de mare",
     allergens: "Conține gluten (grâu).", fermentation: "36 de ore", price: 26, freshToday: true, stock: 8,
   },
   {
-    slug: "painea-saptamanii", name: "Pâinea săptămânii", image: pSaptamanii,
+    slug: "painea-saptamanii", badge: "Weekly drop", name: "Pâinea săptămânii", image: pSaptamanii,
     description: "O rețetă nouă în fiecare săptămână — se anunță lunea, doar pe precomandă.",
     long: "În fiecare luni anunțăm pâinea săptămânii: o rețetă specială, de sezon sau experimentală, coaptă în cantitate limitată. Se face doar pe bază de precomandă — urmărește-ne lunea și rezervă-ți bucata.",
     pairing: "Surpriza săptămânii — îți spunem lunea cu ce merge cel mai bine.",
@@ -121,41 +122,41 @@ export const gallery = [
 ];
 
 export const steps = [
-  { title: "Amestecăm ingredientele", text: "Făină, apă, sare și maia. Nimic altceva." },
-  { title: "Fermentare lentă", text: "24–48 de ore la temperatură controlată." },
-  { title: "Modelare manuală", text: "Fiecare pâine este modelată de mână, una câte una." },
-  { title: "Dospire la rece", text: "O noapte în frig, pentru aromă și digestibilitate." },
-  { title: "Coacere pe piatră", text: "Cuptor cu vatră de piatră, la 250°C, cu abur." },
-  { title: "Livrare proaspătă", text: "Din cuptor la ușa ta, în aceeași dimineață." },
+  { title: "Maia", text: "Pregătim maiaua naturală." },
+  { title: "Mixare", text: "Făină, apă, sare și maia." },
+  { title: "Fermentare", text: "Aluatul este lăsat să se dezvolte lent." },
+  { title: "Modelare", text: "Fiecare pâine este modelată manual." },
+  { title: "Dospire", text: "Pâinea își petrece timpul la rece." },
+  { title: "Cuptor", text: "Coacere la temperatură ridicată." },
+  { title: "Dimineața ta", text: "Pâinea ajunge proaspătă la tine." },
 ];
 
+/** Single source of truth for the weekly baking schedule. weekday: 0 = duminică … 6 = sâmbătă */
 export const schedule = [
-  { day: "Luni", item: "Pâine Albă" },
-  { day: "Miercuri", item: "Integrală" },
-  { day: "Vineri", item: "Cu Semințe" },
-  { day: "Sâmbătă", item: "Ediție Specială" },
+  { weekday: 1, day: "Luni", item: "Pâinea Casei" },
+  { weekday: 3, day: "Miercuri", item: "Integrală" },
+  { weekday: 5, day: "Vineri", item: "Pâine cu semințe" },
+  { weekday: 6, day: "Sâmbătă", item: "Ediția Specială" },
 ];
+export const BAKE_HOUR = 6;
+
+/** Real customer reviews only — add entries as they come in (e.g. from Google). */
+export type Review = { rating: number; text: string; name: string; date?: string; source?: string };
+export const reviews: Review[] = [];
+/** Public Google Business Profile reviews URL — set once the profile is approved. */
+export const googleReviewsUrl = "";
+export const mapsUrl = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("Gluten Morgen, Str. Depozitelor 7, Deva");
 
 export const faqs = [
-  {
-    q: "Cât rezistă pâinea?",
-    a: "Pâinea cu maia se păstrează proaspătă 4–5 zile datorită fermentației naturale, fără niciun conservant.",
-  },
-  {
-    q: "Cum se păstrează?",
-    a: "În pungă de hârtie sau într-un prosop de bumbac, la temperatura camerei. Evită punga de plastic — înmoaie coaja.",
-  },
-  {
-    q: "Livrați la domiciliu?",
-    a: "Da, livrăm local în fiecare dimineață între 08:00 și 12:00. Poți alege și ridicarea din brutărie.",
-  },
-  {
-    q: "Pot congela pâinea?",
-    a: "Sigur. Feliază pâinea, congeleaz-o în pungă etanșă și încălzește feliile direct la prăjitor sau 5 minute în cuptor.",
-  },
-  {
-    q: "Cum comand?",
-    a: "Alegi produsele din secțiunea Produse, plasezi comanda până la ora 20:00 și o primești a doua zi dimineața, proaspăt coaptă.",
-  },
+  { q: "Cât timp se păstrează pâinea?", a: "Pâinea cu maia rămâne bună 3–5 zile, în funcție de sortiment și de modul de păstrare." },
+  { q: "Cum trebuie păstrată?", a: "În pungă de hârtie sau într-un prosop de bumbac, la temperatura camerei. Punga de plastic înmoaie coaja." },
+  { q: "Pot congela pâinea?", a: "Da. Feliaz-o, congeleaz-o în pungă etanșă și încălzește feliile direct la prăjitor sau câteva minute în cuptor." },
+  { q: "Livrați în Deva?", a: "Da, livrăm în Deva și în județul Hunedoara, în intervalul orar ales la comandă." },
+  { q: "Care este taxa de livrare?", a: "Taxa depinde de localitate și îți este comunicată telefonic, la confirmarea comenzii." },
+  { q: "Pot ridica personal comanda?", a: "Da, din brutărie: Str. Depozitelor nr. 7, Deva, în intervalul ales." },
+  { q: "Până la ce oră pot comanda?", a: "Comenzile plasate până la ora 20:00 intră în coacerea următoare." },
+  { q: "Cu cât timp înainte trebuie să precomand?", a: "Cu cel puțin 24 de ore. Pâinea săptămânii se precomandă după anunțul de luni." },
+  { q: "Faceți comenzi pentru evenimente?", a: "Da — nunți, botezuri, petreceri și evenimente corporate. Oferta se face în funcție de cerere; recomandăm cel puțin 5 zile înainte." },
+  { q: "Faceți comenzi pentru restaurante și cafenele?", a: "Da, livrăm pâine, baghete și chifle pentru localuri. Cere o ofertă B2B." },
+  { q: "Cum funcționează abonamentul?", a: "Alegi planul și ziua, iar noi îți păstrăm pâinea. Ai între 10% și 20% reducere la fiecare bucată; plata se face la ridicare sau livrare." },
 ];
-

@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { LegalPage } from "@/components/bakery/LegalPage";
-import { company } from "@/components/bakery/LegalLinks";
+import { companyLine } from "@/components/bakery/LegalLinks";
 import { contact } from "@/components/bakery/data";
 
 export const Route = createFileRoute("/confidentialitate")({
@@ -16,7 +16,7 @@ export const Route = createFileRoute("/confidentialitate")({
   }),
   component: () => (
     <LegalPage title="Politica de confidențialitate">
-      <p>Operator de date: {company.name}, CUI {company.cui}, {contact.addressFull}, {contact.email}.</p>
+      <p>Operator de date: Gluten Morgen{companyLine() && `, ${companyLine()}`}, {contact.addressFull}, {contact.email}.</p>
       <h2>Ce date colectăm</h2>
       <p>Nume, telefon, email și adresa de livrare, doar când plasezi o comandă, o cerere sau te abonezi la newsletter.</p>
       <h2>De ce</h2>

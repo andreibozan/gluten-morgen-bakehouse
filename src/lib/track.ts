@@ -12,7 +12,11 @@ export type EventType =
   | "order_submitted"
   | "add_to_cart"
   | "remove_from_cart"
-  | "checkout_started";
+  | "checkout_started"
+  | "google_maps_click"
+  | "weekly_drop_click"
+  | "subscription_interest"
+  | "b2b_lead";
 
 function sessionId() {
   if (typeof window === "undefined") return null;
