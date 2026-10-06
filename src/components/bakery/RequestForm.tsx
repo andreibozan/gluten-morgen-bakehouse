@@ -10,7 +10,7 @@ export function RequestForm({
   fields,
   submitLabel,
 }: {
-  kind: "abonament" | "eveniment";
+  kind: "abonament" | "eveniment" | "b2b";
   fields: Field[];
   submitLabel: string;
 }) {
@@ -49,6 +49,8 @@ export function RequestForm({
     setSending(false);
     if (err) return setError("Nu am putut trimite cererea. Încearcă din nou sau sună-ne.");
     track("request_submit", kind);
+    if (kind === "b2b") track("b2b_lead");
+    if (kind === "abonament") track("subscription_interest");
     setDone(number);
   }
 
