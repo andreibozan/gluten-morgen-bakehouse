@@ -1,6 +1,5 @@
-- [x] Prețuri produse și ofertă 4 chifle.
-- [x] Reduceri abonamente și ofertă evenimente afișate.
-- [x] Pagini legale, ANPC SAL/SOL, banner cookies, acord GDPR pe formulare.
+- [x] Website 2.0: pagina principală reorganizată conform brief-ului.
 - [ ] Date firmă reale (denumire, CUI, Reg. Com.) — așteaptă utilizatorul.
 - [ ] Taxă livrare și intervale orare reale — așteaptă utilizatorul.
-- [ ] Buton recenzii Google — după aprobarea profilului.
+- [ ] Recenzii reale + link Google — după aprobarea profilului.
+- [ ] Fotografii reale Gluten Morgen — așteaptă utilizatorul.
