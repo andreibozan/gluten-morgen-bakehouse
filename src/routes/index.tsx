@@ -146,7 +146,7 @@ function Index() {
               <InstagramIcon className="h-5 w-5" />
             </a>
             <CartButton />
-            <Link to="/comanda" onClick={() => track("order_click")} className="ml-1 rounded-full bg-primary px-4 py-2.5 text-xs font-bold tracking-[0.12em] text-primary-foreground uppercase hover:bg-primary/90">
+            <Link to="/comanda" search={{ produs: undefined }} onClick={() => track("order_click")} className="ml-1 rounded-full bg-primary px-4 py-2.5 text-xs font-bold tracking-[0.12em] text-primary-foreground uppercase hover:bg-primary/90">
               Comandă
             </Link>
             <button onClick={() => setMenuOpen((v) => !v)} aria-label="Meniu" aria-expanded={menuOpen} className="flex h-10 w-10 shrink-0 flex-col items-center justify-center gap-1.5 lg:hidden">
@@ -180,7 +180,7 @@ function Index() {
                 Pâine cu maia, fermentată lent, modelată manual și coaptă proaspăt în Deva.
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <Link to="/comanda" onClick={() => track("order_click")} className="inline-flex min-h-12 items-center justify-center rounded-full bg-accent px-8 py-4 text-xs font-bold tracking-[0.14em] text-accent-foreground uppercase transition-transform hover:scale-[1.02]">
+                <Link to="/comanda" search={{ produs: undefined }} onClick={() => track("order_click")} className="inline-flex min-h-12 items-center justify-center rounded-full bg-accent px-8 py-4 text-xs font-bold tracking-[0.14em] text-accent-foreground uppercase transition-transform hover:scale-[1.02]">
                   Comandă pâinea de azi
                 </Link>
                 <a href="#meniu" className={btnGhost}>Vezi meniul</a>
@@ -258,7 +258,7 @@ function Index() {
           </div>
           <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
             <p className="font-display text-2xl text-primary">Vrei să fii sigur că prinzi pâinea ta?</p>
-            <Link to="/comanda" onClick={() => track("order_click")} className={btnPrimary}>Rezervă pâinea</Link>
+            <Link to="/comanda" search={{ produs: undefined }} onClick={() => track("order_click")} className={btnPrimary}>Rezervă pâinea</Link>
           </div>
         </section>
 
@@ -462,7 +462,7 @@ function Index() {
         <section className="bg-primary py-24 text-center text-primary-foreground md:py-32">
           <div className="container-x">
             <h2 className="font-display text-4xl md:text-6xl">Mai bună dimineața începe aici.</h2>
-            <Link to="/comanda" onClick={() => track("order_click")} className="mt-10 inline-flex min-h-12 items-center justify-center rounded-full bg-accent px-10 py-4 text-xs font-bold tracking-[0.14em] text-accent-foreground uppercase">
+            <Link to="/comanda" search={{ produs: undefined }} onClick={() => track("order_click")} className="mt-10 inline-flex min-h-12 items-center justify-center rounded-full bg-accent px-10 py-4 text-xs font-bold tracking-[0.14em] text-accent-foreground uppercase">
               Comandă acum
             </Link>
           </div>
@@ -501,7 +501,7 @@ function Index() {
 
       {/* MOBILE STICKY CTA */}
       <nav aria-label="Acțiuni rapide" className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-3 border-t border-border bg-background/95 backdrop-blur-xl md:hidden">
-        <Link to="/comanda" onClick={() => track("order_click")} className="py-4 text-center text-[11px] font-bold tracking-[0.18em] text-primary uppercase">Comandă</Link>
+        <Link to="/comanda" search={{ produs: undefined }} onClick={() => track("order_click")} className="py-4 text-center text-[11px] font-bold tracking-[0.18em] text-primary uppercase">Comandă</Link>
         <a href={WA_GENERAL} target="_blank" rel="noopener noreferrer" onClick={() => track("whatsapp_click")} className="border-x border-border py-4 text-center text-[11px] tracking-[0.18em] text-muted-foreground uppercase">WhatsApp</a>
         <a href="#meniu" className="py-4 text-center text-[11px] tracking-[0.18em] text-muted-foreground uppercase">Meniu</a>
       </nav>
