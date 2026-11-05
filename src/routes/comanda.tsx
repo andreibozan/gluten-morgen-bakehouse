@@ -50,6 +50,8 @@ function OrderPage() {
   const [slot, setSlot] = useState("");
   const [form, setForm] = useState({ customer_name: "", phone: "", email: "", address: "", note: "" });
   const [consent, setConsent] = useState(false);
+  const [invoice, setInvoice] = useState(false);
+  const [firm, setFirm] = useState({ name: "", cui: "", reg: "" });
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState<null | { number: string; items: typeof items; total: number; date: string; slot: string; method: string }>(null);
   const [error, setError] = useState<string | null>(null);
@@ -81,6 +83,10 @@ function OrderPage() {
     if (form.email && !/^\S+@\S+\.\S+$/.test(form.email.trim())) return setError("Email invalid.");
     if (method === "livrare" && form.address.trim().length < 5) return setError("Introdu adresa de livrare.");
 
+    if (invoice && (firm.name.trim().length < 2 || !/^(RO)?\s?\d{2,10}$/i.test(firm.cui.trim())))
+      return setError("Completează denumirea firmei și un CUI valid.");
+    const invoiceNote = invoice ? `FACTURĂ: ${firm.name.trim()}, CUI ${firm.cui.trim()}${firm.reg.trim() ? `, ${firm.reg.trim()}` : ""}` : "";
+    const fullNote = [invoiceNote, form.note.trim()].filter(Boolean).join(" — ");
     const number = "GM-" + Date.now().toString(36).toUpperCase().slice(-6);
     setSending(true);
     const { error: err } = await supabase.from("orders").insert({
@@ -89,7 +95,7 @@ function OrderPage() {
       email: form.email.trim().slice(0, 255) || null,
       delivery_method: method,
       address: method === "livrare" ? form.address.trim().slice(0, 300) : null,
-      note: form.note.trim().slice(0, 500) || null,
+      note: fullNote.slice(0, 500) || null,
       items: items.map(({ slug, name, price, qty }) => ({ slug, name, price, qty, line_total: lineTotal(slug, price, qty) })),
       total,
       order_date: date,
@@ -195,6 +201,17 @@ function OrderPage() {
             <Field label="Telefon" type="tel" value={form.phone} onChange={(v) => set("phone", v)} max={20} autoComplete="tel" />
             <Field label="Email (opțional)" type="email" value={form.email} onChange={(v) => set("email", v)} max={255} autoComplete="email" />
             {method === "livrare" && <Field label="Adresă de livrare" value={form.address} onChange={(v) => set("address", v)} max={300} autoComplete="street-address" />}
+            <label className="flex items-center gap-2 text-sm sm:col-span-2">
+              <input type="checkbox" checked={invoice} onChange={(e) => setInvoice(e.target.checked)} />
+              Doresc factură pe persoană juridică
+            </label>
+            {invoice && (
+              <>
+                <Field label="Denumire firmă" value={firm.name} onChange={(v) => setFirm((f) => ({ ...f, name: v }))} max={120} autoComplete="organization" />
+                <Field label="CUI" value={firm.cui} onChange={(v) => setFirm((f) => ({ ...f, cui: v }))} max={20} />
+                <Field label="Nr. Reg. Com." value={firm.reg} onChange={(v) => setFirm((f) => ({ ...f, reg: v }))} max={30} />
+              </>
+            )}
             <label className="text-sm sm:col-span-2">
               Observații comandă
               <textarea maxLength={500} rows={3} value={form.note} onChange={(e) => set("note", e.target.value)} className="mt-1 w-full rounded-sm border border-border bg-background px-3 py-2" />

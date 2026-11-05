@@ -2,4 +2,7 @@
 - [ ] Date firmă reale (denumire, CUI, Reg. Com.) — așteaptă utilizatorul.
 - [ ] Taxă livrare și intervale orare reale — așteaptă utilizatorul.
 - [ ] Recenzii reale + link Google — după aprobarea profilului.
+- [x] Ghid păstrare, badge stoc redus, factură firmă, configurator abonament.
+- [ ] Alerte comandă pe email — necesită domeniu propriu.
+- [ ] Starter Box și coduri promo — așteaptă preț/reguli de la utilizator.
 - [ ] Fotografii reale Gluten Morgen — așteaptă utilizatorul.

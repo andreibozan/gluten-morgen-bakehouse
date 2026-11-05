@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { RequestForm } from "@/components/bakery/RequestForm";
+import { SubscriptionConfigurator } from "@/components/bakery/SubscriptionConfigurator";
 import { products } from "@/components/bakery/data";
 import { subscriptionPlans as plans, subscriptionUnitPrice, formatLei } from "@/lib/pricing";
 
@@ -36,6 +37,7 @@ function Page() {
             </div>
           ))}
         </div>
+        <SubscriptionConfigurator />
         <h2 className="mt-14 mb-6 font-display text-3xl">Cere un abonament</h2>
         <RequestForm
           kind="abonament"

@@ -140,6 +140,16 @@ function ProductPage() {
                 </div>
               ))}
             </dl>
+
+            <div className="mt-8 rounded-sm border border-border bg-card p-5 text-sm">
+              <h2 className="font-display text-2xl text-primary">Cum o păstrezi proaspătă</h2>
+              <ul className="mt-3 list-disc space-y-1.5 pl-5 text-foreground/80">
+                <li>În pungă de hârtie sau prosop de bumbac, la temperatura camerei — nu în plastic.</li>
+                <li>Așaz-o cu partea tăiată în jos pe tocător, ca miezul să nu se usuce.</li>
+                <li>Revigorare: 5–8 minute în cuptor la 200°C, stropită ușor cu apă — coaja redevine crocantă.</li>
+                <li>Congelare: feliată, în pungă etanșă; prăjești feliile direct din congelator.</li>
+              </ul>
+            </div>
           </Reveal>
         </div>
 
