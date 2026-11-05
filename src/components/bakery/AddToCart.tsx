@@ -10,6 +10,8 @@ export function Availability({ slug }: { slug: string }) {
     return <p className="text-xs font-semibold text-accent">● Se anunță lunea — doar pe precomandă</p>;
   if (!data) return null;
   const n = data[slug] ?? 0;
+  if (n > 0 && n <= 3)
+    return <p className="text-xs font-semibold text-accent">● Doar {n === 1 ? "o bucată rămasă" : `${n} bucăți rămase`} din tura de azi</p>;
   return n > 0 ? (
     <p className="text-xs font-semibold text-olive">● {n} disponibile azi</p>
   ) : (
