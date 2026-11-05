@@ -139,7 +139,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      customer_order_count: { Args: { _phone: string }; Returns: number }
     }
     Enums: {
       app_role: "admin" | "user"
