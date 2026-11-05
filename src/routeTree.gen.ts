@@ -18,6 +18,7 @@ import { Route as ConfidentialitateRouteImport } from './routes/confidentialitat
 import { Route as CookiesRouteImport } from './routes/cookies'
 import { Route as EvenimenteRouteImport } from './routes/evenimente'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as StarterBoxRouteImport } from './routes/starter-box'
 import { Route as TermeniRouteImport } from './routes/termeni'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as ProdusSlugRouteImport } from './routes/produs.$slug'
@@ -66,6 +67,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StarterBoxRoute = StarterBoxRouteImport.update({
+  id: '/starter-box',
+  path: '/starter-box',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TermeniRoute = TermeniRouteImport.update({
   id: '/termeni',
   path: '/termeni',
@@ -91,6 +97,7 @@ export interface FileRoutesByFullPath {
   '/cookies': typeof CookiesRoute
   '/evenimente': typeof EvenimenteRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/starter-box': typeof StarterBoxRoute
   '/termeni': typeof TermeniRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/produs/$slug': typeof ProdusSlugRoute
@@ -104,6 +111,7 @@ export interface FileRoutesByTo {
   '/cookies': typeof CookiesRoute
   '/evenimente': typeof EvenimenteRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/starter-box': typeof StarterBoxRoute
   '/termeni': typeof TermeniRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/produs/$slug': typeof ProdusSlugRoute
@@ -119,6 +127,7 @@ export interface FileRoutesById {
   '/cookies': typeof CookiesRoute
   '/evenimente': typeof EvenimenteRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/starter-box': typeof StarterBoxRoute
   '/termeni': typeof TermeniRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/produs/$slug': typeof ProdusSlugRoute
@@ -134,6 +143,7 @@ export interface FileRouteTypes {
     | '/cookies'
     | '/evenimente'
     | '/sitemap.xml'
+    | '/starter-box'
     | '/termeni'
     | '/admin'
     | '/produs/$slug'
@@ -147,6 +157,7 @@ export interface FileRouteTypes {
     | '/cookies'
     | '/evenimente'
     | '/sitemap.xml'
+    | '/starter-box'
     | '/termeni'
     | '/admin'
     | '/produs/$slug'
@@ -161,6 +172,7 @@ export interface FileRouteTypes {
     | '/cookies'
     | '/evenimente'
     | '/sitemap.xml'
+    | '/starter-box'
     | '/termeni'
     | '/_authenticated/admin'
     | '/produs/$slug'
@@ -176,6 +188,7 @@ export interface RootRouteChildren {
   CookiesRoute: typeof CookiesRoute
   EvenimenteRoute: typeof EvenimenteRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  StarterBoxRoute: typeof StarterBoxRoute
   TermeniRoute: typeof TermeniRoute
   ProdusSlugRoute: typeof ProdusSlugRoute
 }
@@ -245,6 +258,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/starter-box': {
+      id: '/starter-box'
+      path: '/starter-box'
+      fullPath: '/starter-box'
+      preLoaderRoute: typeof StarterBoxRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/termeni': {
       id: '/termeni'
       path: '/termeni'
@@ -290,6 +310,7 @@ const rootRouteChildren: RootRouteChildren = {
   CookiesRoute: CookiesRoute,
   EvenimenteRoute: EvenimenteRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  StarterBoxRoute: StarterBoxRoute,
   TermeniRoute: TermeniRoute,
   ProdusSlugRoute: ProdusSlugRoute,
 }

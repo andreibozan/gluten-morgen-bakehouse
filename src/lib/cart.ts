@@ -2,7 +2,7 @@ import { useSyncExternalStore } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { products, contact } from "@/components/bakery/data";
 import { supabase } from "@/integrations/supabase/client";
-import { lineTotal } from "@/lib/pricing";
+import { lineTotal, BOX_PREFIX, boxDiscount, boxPrice } from "@/lib/pricing";
 
 export type CartLine = { slug: string; qty: number };
 const KEY = "gm_cart";
@@ -54,11 +54,23 @@ export function useCart() {
   const lines = useSyncExternalStore(subscribe, read, () => EMPTY);
   const items = lines
     .map((l) => {
+      if (l.slug.startsWith(BOX_PREFIX)) {
+        const picks = l.slug.slice(BOX_PREFIX.length).split(",").map((s) => products.find((x) => x.slug === s)).filter((x): x is NonNullable<typeof x> => !!x);
+        if (picks.length < 2) return null;
+        return {
+          slug: l.slug,
+          name: `Starter Box (−${boxDiscount(picks.length)}%): ${picks.map((p) => p.name).join(" + ")}`,
+          price: boxPrice(picks.map((p) => p.price)),
+          image: picks[0]!.image,
+          weight: `${picks.length} produse`,
+          qty: l.qty,
+        };
+      }
       const p = products.find((x) => x.slug === l.slug);
       return p ? { slug: p.slug, name: p.name, price: p.price, image: p.image, weight: p.weight, qty: l.qty } : null;
     })
     .filter((x): x is NonNullable<typeof x> => !!x);
-  const subtotal = items.reduce((s, i) => s + lineTotal(i.slug, i.price, i.qty), 0);
+  const subtotal = Math.round(items.reduce((s, i) => s + lineTotal(i.slug, i.price, i.qty), 0) * 100) / 100;
   const count = items.reduce((s, i) => s + i.qty, 0);
   return { items, subtotal, count };
 }
