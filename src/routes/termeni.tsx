@@ -20,7 +20,7 @@ export const Route = createFileRoute("/termeni")({
       <h2>Comenzi</h2>
       <p>Comenzile se plasează cu cel puțin 24 de ore înainte. Comanda devine fermă după confirmarea telefonică din partea noastră.</p>
       <h2>Prețuri și plată</h2>
-      <p>Prețurile sunt exprimate în lei și includ TVA. Plata se face la ridicare sau la livrare (numerar sau card). Taxa de livrare se comunică la confirmare.</p>
+      <p>Prețurile sunt exprimate în lei și includ TVA. Plata se face la ridicare sau la livrare (numerar sau card). Livrarea este gratuită.</p>
       <h2>Livrare și ridicare</h2>
       <p>Ridicare din brutărie ({contact.addressFull}) sau livrare în județul Hunedoara, în intervalul orar ales.</p>
       <h2>Dreptul de retragere</h2>

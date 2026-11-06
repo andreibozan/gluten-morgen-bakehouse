@@ -152,7 +152,7 @@ export const faqs = [
   { q: "Cum trebuie păstrată?", a: "În pungă de hârtie sau într-un prosop de bumbac, la temperatura camerei. Punga de plastic înmoaie coaja." },
   { q: "Pot congela pâinea?", a: "Da. Feliaz-o, congeleaz-o în pungă etanșă și încălzește feliile direct la prăjitor sau câteva minute în cuptor." },
   { q: "Livrați în Deva?", a: "Da, livrăm în Deva și în județul Hunedoara, în intervalul orar ales la comandă." },
-  { q: "Care este taxa de livrare?", a: "Taxa depinde de localitate și îți este comunicată telefonic, la confirmarea comenzii." },
+  { q: "Care este taxa de livrare?", a: "Livrarea este gratuită în zona noastră de livrare." },
   { q: "Pot ridica personal comanda?", a: "Da, din brutărie: Str. Depozitelor nr. 7, Deva, în intervalul ales." },
   { q: "Până la ce oră pot comanda?", a: "Comenzile plasate până la ora 20:00 intră în coacerea următoare." },
   { q: "Cu cât timp înainte trebuie să precomand?", a: "Cu cel puțin 24 de ore. Pâinea săptămânii se precomandă după anunțul de luni." },

@@ -26,6 +26,7 @@ const NAV = [
   { href: "#meniu", label: "Meniu" },
   { href: "#proces", label: "Proces" },
   { href: "#poveste", label: "Povestea noastră" },
+  { href: "/starter-box", label: "Starter Box" },
   { href: "/abonamente", label: "Abonament" },
   { href: "#b2b", label: "B2B" },
   { href: "#contact", label: "Contact" },
