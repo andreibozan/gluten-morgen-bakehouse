@@ -7,7 +7,7 @@ import { track } from "@/lib/track";
 import { cart, openState, useCart, whatsappOrderUrl } from "@/lib/cart";
 import { QtyStepper } from "@/components/bakery/CartDrawer";
 import { deliveryConfig } from "@/components/bakery/config";
-import { lineTotal, ROLL_SLUG } from "@/lib/pricing";
+import { lineTotal, loyaltyDiscount, applyPercent } from "@/lib/pricing";
 
 export const Route = createFileRoute("/comanda")({
   component: OrderPage,
@@ -68,7 +68,18 @@ function OrderPage() {
     const d = dates.find((x) => iso(x) === date);
     return d ? fmt(d) : "";
   }, [date, dates]);
-  const total = subtotal;
+  const [prevOrders, setPrevOrders] = useState<number | null>(null);
+  useEffect(() => {
+    const p = form.phone.trim();
+    if (!/^[0-9 +().-]{9,20}$/.test(p)) { setPrevOrders(null); return; }
+    const t = setTimeout(async () => {
+      const { data } = await supabase.rpc("customer_order_count", { _phone: p });
+      setPrevOrders(typeof data === "number" ? data : 0);
+    }, 500);
+    return () => clearTimeout(t);
+  }, [form.phone]);
+  const loyalty = prevOrders === null ? { percent: 0, reason: "" } : loyaltyDiscount(prevOrders);
+  const total = applyPercent(subtotal, loyalty.percent);
   const set = (k: keyof typeof form, v: string) => setForm((f) => ({ ...f, [k]: v }));
 
   async function submit(e: React.FormEvent) {
@@ -86,7 +97,8 @@ function OrderPage() {
     if (invoice && (firm.name.trim().length < 2 || !/^(RO)?\s?\d{2,10}$/i.test(firm.cui.trim())))
       return setError("Completează denumirea firmei și un CUI valid.");
     const invoiceNote = invoice ? `FACTURĂ: ${firm.name.trim()}, CUI ${firm.cui.trim()}${firm.reg.trim() ? `, ${firm.reg.trim()}` : ""}` : "";
-    const fullNote = [invoiceNote, form.note.trim()].filter(Boolean).join(" — ");
+    const loyaltyNote = loyalty.percent ? `REDUCERE ${loyalty.percent}% (${loyalty.reason})` : "";
+    const fullNote = [loyaltyNote, invoiceNote, form.note.trim()].filter(Boolean).join(" — ");
     const number = "GM-" + Date.now().toString(36).toUpperCase().slice(-6);
     setSending(true);
     const { error: err } = await supabase.from("orders").insert({
@@ -126,7 +138,7 @@ function OrderPage() {
             ))}
           </ul>
           <div className="flex justify-between border-t border-border pt-3 font-display text-2xl text-primary"><span>Total</span><span>{done.total} lei</span></div>
-          {done.method === "livrare" && <p className="text-xs text-muted-foreground">Taxa de livrare se confirmă telefonic.</p>}
+          {done.method === "livrare" && <p className="text-xs text-muted-foreground">Livrarea este gratuită.</p>}
         </div>
         <p className="mt-6 text-center text-sm text-muted-foreground">Te sunăm la {form.phone} pentru confirmare.</p>
         <Link to="/" className="mt-8 block rounded-full bg-primary py-4 text-center text-sm font-bold text-primary-foreground">Înapoi la pagina principală</Link>
@@ -172,7 +184,7 @@ function OrderPage() {
             </button>
             <button type="button" className={choice(method === "livrare")} onClick={() => setMethod("livrare")}>
               <strong className="block">Livrare</strong>
-              <span className="opacity-80">{deliveryConfig.area} · taxa se confirmă telefonic</span>
+              <span className="opacity-80">{deliveryConfig.area} · gratuită</span>
             </button>
           </div>
         </Step>
@@ -225,7 +237,9 @@ function OrderPage() {
             <Row k="Data" v={dateLabel || "—"} />
             <Row k="Interval" v={slot || "—"} />
             <Row k="Subtotal" v={`${subtotal} lei`} />
-            {method === "livrare" && <Row k="Livrare" v="se confirmă telefonic" />}
+            {loyalty.percent > 0 && <Row k={`Reducere ${loyalty.reason}`} v={`−${loyalty.percent}%`} />}
+            {prevOrders === null && <p className="text-xs text-muted-foreground">Introdu telefonul ca să vezi reducerea de fidelitate (prima comandă și fiecare a 3-a: −10%).</p>}
+            {method === "livrare" && <Row k="Livrare" v="Gratuită" />}
             <div className="flex justify-between border-t border-border pt-3 font-display text-2xl text-primary"><span>Total</span><span>{total} lei</span></div>
           </div>
         </Step>

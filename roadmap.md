@@ -4,5 +4,5 @@
 - [ ] Recenzii reale + link Google — după aprobarea profilului.
 - [x] Ghid păstrare, badge stoc redus, factură firmă, configurator abonament.
 - [ ] Alerte comandă pe email — necesită domeniu propriu.
-- [ ] Starter Box și coduri promo — așteaptă preț/reguli de la utilizator.
+- [x] Starter Box, reduceri fidelitate, livrare gratuită.
 - [ ] Fotografii reale Gluten Morgen — așteaptă utilizatorul.
