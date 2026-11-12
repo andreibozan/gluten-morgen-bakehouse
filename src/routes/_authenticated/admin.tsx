@@ -235,6 +235,8 @@ function AdminPage() {
 
       <StockEditor />
 
+      <BakeSheet orders={orders} />
+
       <section className="mt-6 rounded-xl border border-border bg-card p-5">
         <h2 className="font-display text-2xl text-primary">Comenzi</h2>
         {orders.length === 0 && <p className="mt-3 text-sm text-muted-foreground">Nu există comenzi încă.</p>}
@@ -254,7 +256,15 @@ function AdminPage() {
                     {o.email ? ` · ${o.email}` : ""}
                   </p>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex flex-wrap items-center gap-3">
+                  <a
+                    href={confirmUrl(o)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded-full border border-border px-3 py-1 text-xs text-primary"
+                  >
+                    Confirmă pe WhatsApp
+                  </a>
                   <span className="font-display text-xl text-primary">{Number(o.total).toFixed(0)} lei</span>
                   <select
                     value={o.status}
@@ -332,6 +342,69 @@ function StockEditor() {
         ))}
       </ul>
       {saved && <p className="mt-2 text-xs text-olive">{saved}</p>}
+    </section>
+  );
+}
+
+function waPhone(phone: string) {
+  let d = phone.replace(/\D/g, "");
+  if (d.startsWith("00")) d = d.slice(2);
+  if (d.startsWith("0")) d = "40" + d.slice(1);
+  return d;
+}
+
+function confirmUrl(o: Order) {
+  const when = o.order_date
+    ? ` pentru ${new Date(o.order_date).toLocaleDateString("ro-RO")}${o.time_slot ? `, ${o.time_slot}` : ""}`
+    : "";
+  const where = o.delivery_method === "livrare" ? "Ți-o aducem la adresa indicată." : "Te așteptăm la brutărie, Str. Depozitelor nr. 7, Deva.";
+  const msg = `Bună ${o.customer_name}! Comanda ta Gluten Morgen${o.order_number ? ` #${o.order_number}` : ""}${when} a fost confirmată și intră la copt. ${where} Mulțumim!`;
+  return `https://wa.me/${waPhone(o.phone)}?text=${encodeURIComponent(msg)}`;
+}
+
+const NON_BAKE = ["newsletter", "abonament", "eveniment", "b2b"];
+
+function BakeSheet({ orders }: { orders: Order[] }) {
+  const tomorrow = new Date(Date.now() + 86400000).toLocaleDateString("sv-SE", { timeZone: "Europe/Bucharest" });
+  const [date, setDate] = useState(tomorrow);
+  const relevant = orders.filter(
+    (o) => o.order_date === date && !["anulat", "finalizat"].includes(o.status) && !NON_BAKE.includes(o.delivery_method),
+  );
+  const totals: Record<string, number> = {};
+  for (const o of relevant) for (const it of o.items ?? []) totals[it.name] = (totals[it.name] ?? 0) + it.qty;
+  const rows = Object.entries(totals).sort((a, b) => b[1] - a[1]);
+  return (
+    <section className="mt-6 rounded-xl border border-border bg-card p-5 print:border-0">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <h2 className="font-display text-2xl text-primary">Foaie de coacere</h2>
+        <div className="flex items-center gap-2 print:hidden">
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            aria-label="Ziua de coacere"
+            className="rounded-md border border-border bg-background px-2 py-1 text-sm"
+          />
+          <button onClick={() => window.print()} className="rounded-full border border-border px-4 py-1.5 text-xs">
+            Printează
+          </button>
+        </div>
+      </div>
+      <p className="text-sm text-muted-foreground">
+        {relevant.length} comenzi active pentru {new Date(date).toLocaleDateString("ro-RO")} (fără cele anulate sau finalizate).
+      </p>
+      {rows.length === 0 ? (
+        <p className="mt-3 text-sm text-muted-foreground">Nimic de copt pentru ziua aleasă.</p>
+      ) : (
+        <ul className="mt-4 divide-y divide-border">
+          {rows.map(([name, qty]) => (
+            <li key={name} className="flex justify-between py-2 text-sm">
+              <span>{name}</span>
+              <span className="font-display text-xl text-primary">{qty} buc.</span>
+            </li>
+          ))}
+        </ul>
+      )}
     </section>
   );
 }
