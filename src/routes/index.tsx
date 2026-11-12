@@ -27,6 +27,7 @@ const NAV = [
   { href: "#proces", label: "Proces" },
   { href: "#poveste", label: "Povestea noastră" },
   { href: "/starter-box", label: "Starter Box" },
+  { href: "/retete", label: "Rețete" },
   { href: "/abonamente", label: "Abonament" },
   { href: "#b2b", label: "B2B" },
   { href: "#contact", label: "Contact" },
